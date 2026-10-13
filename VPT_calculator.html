@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Victorian Points Test (VPT) calculator | PFEC Global</title>
+<meta name="description" content="Estimate your Victorian Points Test total for Victorian 190 and 491 skilled visa nomination, using the 2026–27 points tables.">
+<script>if(/[?&]embed\b/.test(location.search)){document.documentElement.className+=" embed";document.write('<base target="_top">');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   THEME  —  PFEC Global brand tokens (same as the visa checker).
+   ===================================================================== */
+:root{
+  --navy:#1D297C; --navy-deep:#141D5E; --navy-tint:#EEF0FA;
+  --coral:#D63F2B; --coral-hover:#C2361F;
+  --ink:#1E293B; --body:#334155; --mute:#5B6B82;
+  --line:#E2E8F0; --line-strong:#CBD5E1; --bg:#F5F7FB; --surface:#FFFFFF;
+  --amber:#8A5A0B; --amber-bg:#FDF7E4; --amber-line:#EBCF85;
+  --green:#16794C; --green-bg:#E7F5EE;
+  --display:"Yeseva One",Georgia,"Times New Roman",serif;
+  --sans:Montserrat,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+/* ======================= END OF THEME ======================= */
+*,*:before,*:after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);font:400 16px/1.6 var(--sans)}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--navy)}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 24px}
+
+.site-head{background:var(--surface);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.logo{display:inline-flex;align-items:center;text-decoration:none;color:var(--navy)}
+.logo img{height:42px;width:auto;display:block}
+.logo-text{font:700 20px/1 var(--sans)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:600 14px/1.2 var(--sans);text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.pill.coral{background:var(--coral);color:#fff}
+.pill.coral:hover{background:var(--coral-hover)}
+.pill.outline{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.show-sm{display:none}
+
+.hero{position:relative;overflow:hidden;background:var(--navy-deep);color:#fff;padding:52px 0 112px}
+.hero:before,.hero:after{content:"";position:absolute;top:-10%;bottom:-10%;width:220px;background:rgba(255,255,255,.05);transform:skewX(-18deg)}
+.hero:before{right:14%}
+.hero:after{right:calc(14% + 250px);width:120px;background:rgba(255,255,255,.035)}
+.hero .wrap{position:relative}
+.hero h1{font:400 clamp(30px,5vw,48px)/1.12 var(--display);margin:0 0 14px;max-width:760px}
+.hero .lede{font-size:17px;line-height:1.65;color:#D5DAF2;max-width:640px;margin:0 0 24px}
+.facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:14px;color:#E4E8F8}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts svg{flex:none;width:18px;height:18px;stroke:#fff;opacity:.85}
+
+.shell{position:relative;margin-top:-76px;padding-bottom:40px}
+.calc{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.calc{grid-template-columns:minmax(0,1fr) 360px;align-items:start}}
+.panel{background:var(--surface);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 12px 32px rgba(15,23,42,.08)}
+
+/* Factors */
+.factors{overflow:hidden}
+.factor{padding:26px 28px;border-top:1px solid var(--line);border:0;margin:0;min-width:0}
+.factor+.factor{border-top:1px solid var(--line)}
+.f-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:4px}
+.f-head h2{font:600 19px/1.3 var(--sans);color:var(--ink);margin:0;display:flex;align-items:center;gap:10px}
+.f-head h2 i{flex:none;width:12px;height:12px;border-radius:3px}
+.f-pts{white-space:nowrap;font-size:13px;color:var(--mute)}
+.f-pts b{font-size:17px;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.help{font-size:14px;color:var(--mute);margin:0 0 14px;max-width:640px}
+.help a{font-weight:600}
+.warn{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:var(--amber-bg);border:1px solid var(--amber-line);color:var(--ink);font-size:14px;font-weight:500}
+.okmsg{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:var(--green-bg);color:var(--green);font-size:14px;font-weight:600}
+.infomsg{margin:12px 0 0;padding:10px 14px;border-radius:10px;background:var(--navy-tint);color:var(--ink);font-size:14px}
+
+.chips{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));border:0;padding:0;margin:0}
+.chips.wide{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.chip{position:relative;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:border-color .15s,background-color .15s}
+.chip:hover{border-color:var(--line-strong);background:#FAFBFD}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{font-weight:600;color:var(--ink);line-height:1.35}
+.chip em{font-style:normal;font-size:13px;font-weight:600;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+.chip:has(input:checked){border-color:var(--navy);background:var(--navy-tint)}
+.chip:has(input:checked) em{color:var(--navy)}
+.chip:has(input:focus-visible){outline:3px solid var(--coral);outline-offset:2px}
+.chips.stack{grid-template-columns:1fr}
+.chips.stack .chip span{font-weight:500}
+.chips.stack .chip:has(input:checked) span{font-weight:600}
+
+.field{display:grid;gap:6px;max-width:440px;margin-top:14px}
+.field label{font-size:14.5px;font-weight:600;color:var(--ink)}
+.field small{font-size:13px;color:var(--mute)}
+.field input,.field select{width:100%;font:500 16px/1.3 var(--sans);color:var(--ink);background:#fff;border:1.5px solid var(--line-strong);border-radius:10px;padding:11px 12px;min-height:46px}
+.field select{appearance:none;-webkit-appearance:none;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231D297C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-tint)}
+.money{position:relative}
+.money:before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--mute)}
+.money input{padding-left:26px}
+.sub{margin-top:14px;padding:16px 18px;border-radius:12px;background:#FAFBFD;border:1px solid var(--line)}
+.sub .q{font-size:14.5px;font-weight:600;color:var(--ink);margin:0 0 10px}
+.sub .q+.chips{margin-bottom:6px}
+.sub .field:first-child{margin-top:0}
+
+/* Summary */
+.summary{padding:26px 24px}
+@media (min-width:960px){.summary{position:sticky;top:20px}}
+.summary h2{font:600 15px/1.3 var(--sans);color:var(--mute);margin:0}
+.total{display:flex;align-items:baseline;gap:10px;margin:2px 0 4px}
+.total b{font:400 64px/1 var(--display);color:var(--navy);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.total span{font-size:15px;color:var(--mute);font-weight:500}
+.answered{font-size:13px;color:var(--mute);margin:0 0 16px}
+.meter{display:flex;height:16px;border-radius:999px;background:var(--line);overflow:hidden;margin-bottom:18px}
+.meter i{display:block;height:100%;transition:width .35s ease}
+.meter i+i{box-shadow:inset 1.5px 0 0 #fff}
+.legend{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:14px}
+.legend li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:center}
+.legend i{width:12px;height:12px;border-radius:3px}
+.legend span{color:var(--body);line-height:1.35}
+.legend b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.legend b small{color:var(--mute);font-weight:500;font-size:12.5px}
+.tips{margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
+.tips h3{font:600 15px/1.3 var(--sans);color:var(--ink);margin:0 0 10px}
+.tips ul{margin:0;padding-left:18px;font-size:14px}
+.tips li{margin:6px 0}
+.tips li b{color:var(--green)}
+.note{margin:16px 0 0;padding:12px 14px;border-radius:10px;background:var(--navy-tint);font-size:13.5px;color:var(--ink);line-height:1.55}
+.cta{margin-top:18px;padding:20px;border-radius:14px;background:var(--navy);color:#fff}
+.cta h3{font:600 16px/1.35 var(--sans);margin:0 0 6px;color:#fff}
+.cta p{margin:0 0 14px;font-size:14px;color:#D5DAF2}
+.cta-btns{display:flex;flex-wrap:wrap;gap:8px}
+.actions{display:flex;gap:8px;margin-top:14px}
+.btn{flex:1;display:inline-flex;justify-content:center;align-items:center;gap:8px;border-radius:10px;padding:11px 14px;font:600 14px/1.2 var(--sans);cursor:pointer;background:#fff;color:var(--ink);border:1.5px solid var(--line-strong)}
+.btn:hover{border-color:var(--navy);color:var(--navy)}
+.btn svg{width:16px;height:16px}
+
+.below{margin-top:34px}
+.below h2{font:400 26px/1.2 var(--display);color:var(--ink);margin:0 0 14px}
+.below details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.below summary{cursor:pointer;padding:16px 20px;font-weight:600;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:12px}
+.below summary::-webkit-details-marker{display:none}
+.below summary:after{content:"+";font-size:20px;line-height:1;color:var(--navy)}
+.below details[open] summary:after{content:"\2013"}
+.below .body{padding:0 20px 18px;font-size:14.5px}
+.below .body p{margin:0 0 10px;max-width:760px}
+.below table{border-collapse:collapse;width:100%;font-size:14px}
+.below td,.below th{padding:7px 0;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+.below th{font-size:12.5px;color:var(--mute);font-weight:600;border-top:0}
+.below td:first-child{color:var(--mute);width:90px}
+.below h4{font-size:14.5px;color:var(--ink);margin:16px 0 6px}
+.site-foot{margin-top:40px;padding:28px 0 48px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}
+.site-foot p{margin:0 0 8px;max-width:820px}
+
+.mbar{display:none}
+@media (max-width:959px){
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(15,23,42,.08)}
+  .mbar .t{font-size:13px;color:var(--mute);line-height:1.2}
+  .mbar .t b{display:block;font:400 26px/1.1 var(--display);color:var(--navy)}
+  .mbar button{background:var(--navy);color:#fff;border:0;border-radius:999px;padding:11px 18px;font-weight:600;font-size:14px;cursor:pointer}
+}
+@media (max-width:600px){
+  .wrap{padding:0 12px}
+  .site-head .pill{padding:9px 14px;font-size:13px}.logo img{height:34px}
+  .hide-sm{display:none}.show-sm{display:inline}
+  .hero{padding:26px 0 86px}.hero h1{font-size:28px}.hero .lede{font-size:15px;margin-bottom:14px}
+  .facts{font-size:12.5px;gap:6px 16px}.facts li:nth-child(2){display:none}
+  .shell{margin-top:-66px}
+  .factor{padding:20px 16px}
+  .chips{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chips.wide,.chips.stack{grid-template-columns:1fr}
+  .summary{padding:22px 18px}
+  .total b{font-size:56px}
+}
+html.embed body{background:transparent;padding-bottom:0}
+html.embed .site-head,html.embed .hero,html.embed .site-foot,html.embed .mbar{display:none!important}
+html.embed .shell{margin-top:0;padding:14px 0 16px}
+@media print{
+  @page{margin:14mm}
+  body{background:#fff;padding:0}
+  .site-head,.hero,.mbar,.actions,.cta .cta-btns,.below,.site-foot{display:none!important}
+  .shell{margin:0;padding:0}
+  .calc{display:block}
+  .panel{box-shadow:none;border:1px solid var(--line);margin-bottom:12px;break-inside:avoid}
+  .summary{position:static}
+  .cta{background:#fff;color:var(--ink);border:1px solid var(--line)} .cta h3{color:var(--ink)} .cta p{color:var(--body)}
+  .meter i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .legend i{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .chip:not(:has(input:checked)){display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="wrap head-row">
+  <a class="logo" id="logo-link" href="https://pfecglobal.com.au/"><img id="logo-img" alt="PFEC Global" width="126" height="42"><span class="logo-text" id="logo-text" hidden>PFEC Global</span></a>
+  <a class="pill coral" id="head-cta" href="https://pfecglobal.com.au/contact-us/">Book a free consultation</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <h1>Victorian Points Test calculator</h1>
+  <p class="lede" id="lede">Estimate your VPT total for Victorian nomination for the Skilled Nominated (subclass 190) and Skilled Work Regional (subclass 491) visas.</p>
+  <ul class="facts">
+    <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l4-4 3 3 5-6"/></svg>Your total updates as you answer</li>
+    <li id="fact-year"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg><span></span></li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Nothing you enter is saved or sent</li>
+  </ul>
+</div></section>
+
+<main class="wrap shell">
+  <div class="calc">
+    <form class="panel factors" id="form" onsubmit="return false" novalidate></form>
+    <aside class="panel summary" id="summary" aria-labelledby="sum-h" aria-live="polite"></aside>
+  </div>
+
+  <section class="below" aria-labelledby="below-h">
+    <h2 id="below-h">How the VPT works</h2>
+    <details><summary>Invitations and ranking</summary><div class="body">
+      <p>Every Registration of Interest (ROI) gets a VPT total, worked out from your SkillSelect Expression of Interest and your Victorian ROI. ROIs are ranked from the highest total down.</p>
+      <p>There are two ways to be invited. In each round, the highest totals across all eligible occupations are invited (most competitive), and the highest totals within each priority industry are invited (priority industry).</p>
+      <p>The VPT has no fixed pass mark, and invitations depend on how competitive the pool is in each round, so a total here cannot tell you whether you will be invited. You still need at least 65 points on the Australian Government's SkillSelect points test, which is separate from the VPT.</p>
+    </div></details>
+    <details><summary>Priority industries and occupations</summary><div class="body" id="priority-list"></div></details>
+  </section>
+
+  <footer class="site-foot">
+    <p id="foot-source"></p>
+    <p>This calculator gives an estimate for general information only. It is not migration advice, and an invitation or nomination is not guaranteed. © PFEC Global. Migration advice is provided by MARA-registered agents.</p>
+  </footer>
+</main>
+
+<div class="mbar" id="mbar"><div class="t">Your VPT total<b id="mbar-total">0</b></div><button type="button" id="mbar-btn">See breakdown</button></div>
+
+<script>
+/* =====================================================================
+   VPT CONFIG  —  edit this block when Live in Melbourne updates the
+   Victorian Points Test. Every table on the page comes from here.
+   ---------------------------------------------------------------------
+   program   : program year, source link and the date you last checked it.
+   factors   : the scored factors, in page order. Each option has a label
+               and points. The highest option sets the factor's maximum.
+   earnings  : bands as [lowest amount, points], lowest first. Below the
+               first band scores 0.
+   partner   : points when all three partner conditions are met.
+   priority  : priority industries and their occupations (ANZSCO code,
+               name). Used for the partner check and the occupation lookup.
+   ===================================================================== */
+var VPT = {
+  program: {
+    year: "2026–27",
+    sourceUrl: "https://liveinmelbourne.vic.gov.au/migrate/skilled-migration-visas/vpt",
+    checked: "13 October 2026",
+    earningsGuideUrl: "https://liveinmelbourne.vic.gov.au/migrate/skilled-migration-visas/earnings-calculator",
+    skillLevelUrl: "https://immi.homeaffairs.gov.au/visas/working-in-australia/skill-occupation-list"
+  },
+
+  site: {
+    name: "PFEC Global",
+    logo: "https://pfecglobal.com.au/wp-content/uploads/2025/04/Asset-1@4x-1-1.png",
+    homeUrl: "https://pfecglobal.com.au/",
+    consultUrl: "https://pfecglobal.com.au/contact-us/",
+    consultLabel: "Book a free consultation",
+    contactUrl: "https://pfecglobal.com.au/contact-us/",
+    contactLabel: "Contact us"
+  },
+
+  factors: [
+    {
+      id: "age", title: "Age", control: "select", color: "#1D297C",
+      help: "Your age when you are invited. You must be under 45 to be invited to apply for a 190 or 491 visa.",
+      options: [
+        ["Under 18", 0], ["18", 265], ["19", 282], ["20", 300], ["21", 300], ["22", 300], ["23", 300], ["24", 300], ["25", 300],
+        ["26", 300], ["27", 300], ["28", 300], ["29", 300], ["30", 286], ["31", 270], ["32", 256], ["33", 240], ["34", 226],
+        ["35", 210], ["36", 196], ["37", 180], ["38", 166], ["39", 150], ["40", 136], ["41", 106], ["42", 76], ["43", 46],
+        ["44", 16], ["45 or over", 0]
+      ],
+      warn: { "Under 18": "You must be at least 18 to be invited.", "45 or over": "You must be under 45 when you are invited, so you cannot currently be invited for a 190 or 491 visa." }
+    },
+    {
+      id: "english", title: "English language", control: "choice", color: "#3D4FB8",
+      help: "Your English level as claimed in your SkillSelect EOI.",
+      options: [["Competent", 0], ["Proficient", 100], ["Superior", 200]]
+    },
+    {
+      id: "experience", title: "Experience in your nominated occupation", control: "choice", color: "#0E7C86",
+      help: "Bands as published by Live in Melbourne. Confirm how your experience is counted before you submit your ROI.",
+      options: [["0 years", 0], ["1 year", 20], ["1–3 years", 40], ["3–5 years", 60], ["6–8 years", 80], ["More than 8 years", 100]]
+    },
+    {
+      id: "education", title: "Education level", control: "choice", color: "#16794C",
+      help: "Your highest qualification.",
+      options: [["Other", 25], ["Bachelor or Honours", 50], ["Masters", 75], ["PhD", 100]]
+    },
+    {
+      id: "skill", title: "Occupation skill level", control: "choice", color: "#B7791F",
+      help: "The skill level of your nominated occupation.",
+      options: [["Skill level 3", 0], ["Skill level 2", 0], ["Skill level 1", 50]]
+    },
+    { id: "partner", title: "Partner's skill", control: "partner", color: "#9C3D8C" },
+    { id: "earnings", title: "Annual earnings in Victoria", control: "earnings", color: "#D63F2B" }
+  ],
+
+  partner: { points: 50 },
+
+  earnings: [[80000, 8], [85000, 16], [90000, 24], [95000, 32], [100000, 39], [105000, 47], [110000, 55], [115000, 63], [120000, 71], [125000, 79],
+    [130000, 87], [135000, 95], [140000, 103], [145000, 111], [150000, 118], [155000, 126], [160000, 134], [165000, 142], [170000, 150]],
+
+  priority: [
+    { industry: "Healthcare", occupations: [["251211","Medical Diagnostic Radiographer"],["251212","Medical Radiation Therapist"],["251213","Nuclear Medicine Technologist"],["251214","Sonographer"],["251411","Optometrist"],["251511","Hospital Pharmacist"],["251912","Orthotist or Prosthetist"],["252411","Occupational Therapist"],["252511","Physiotherapist"],["252611","Podiatrist"],["252711","Audiologist"],["252712","Speech Pathologist"],["253311","Specialist Physician (General Medicine)"],["253314","Medical Oncologist"],["253317","Intensive Care Specialist"],["253318","Neurologist"],["253321","Paediatrician"],["253399","Specialist Physicians nec"],["253312","Cardiologist"],["253313","Clinical Haematologist"],["253315","Endocrinologist"],["253316","Gastroenterologist"],["253322","Renal Medicine Specialist"],["253323","Rheumatologist"],["253324","Thoracic Medicine Specialist"],["253411","Psychiatrist"],["253512","Cardiothoracic Surgeon"],["253511","Surgeon"],["253513","Neurosurgeon"],["253514","Orthopaedic Surgeon"],["253515","Otorhinolaryngologist"],["253516","Paediatric Surgeon"],["253517","Plastic and Reconstructive Surgeon"],["253518","Urologist"],["253521","Vascular Surgeon"],["253912","Emergency Medicine Specialist"],["253913","Obstetrician and Gynaecologist"],["253917","Diagnostic and Interventional Radiologist"],["253914","Ophthalmologist"],["253915","Pathologist"],["254111","Midwife"],["254211","Nurse Educator"],["254212","Nurse Researcher"],["254311","Nurse Manager"],["254411","Nurse Practitioner"],["254412","Registered Nurse (Aged Care)"],["254413","Registered Nurse (Child and Family Health)"],["254414","Registered Nurse (Community Health)"],["254415","Registered Nurse (Critical Care and Emergency)"],["254416","Registered Nurse (Developmental Disability)"],["254417","Registered Nurse (Disability and Rehabilitation)"],["254418","Registered Nurse (Medical)"],["254421","Registered Nurse (Medical Practice)"],["254422","Registered Nurse (Mental Health)"],["254423","Registered Nurse (Perioperative)"],["254424","Registered Nurse (Surgical)"],["254425","Registered Nurse (Paediatrics)"],["254499","Registered Nurses nec"],["411213","Dental Technician"]] },
+    { industry: "Social assistance", occupations: [["272311","Clinical Psychologist"],["272313","Organisational Psychologist"],["272312","Educational Psychologist"],["272399","Psychologists nec"],["272511","Social Worker"],["272613","Welfare Worker"]] },
+    { industry: "Education: Teachers", occupations: [["241311","Middle School Teacher"],["241411","Secondary School Teacher"],["241511","Special Needs Teacher"],["241599","Special Education Teachers nec"]] },
+    { industry: "Education: Early Childhood", occupations: [["241111","Early Childhood (Pre-primary School) Teacher"]],
+      note: "ROIs with one or more years of relevant work experience and Proficient or Superior English are prioritised for invitation." },
+    { industry: "Construction: Professionals", occupations: [["233212","Geotechnical Engineer"],["234412","Geophysicist"],["234413","Hydrogeologist"],["133111","Construction Project Manager"],["232212","Surveyor"],["232214","Other Spatial Scientist"]] },
+    { industry: "Construction: Trades", occupations: [["333111","Glazier"],["331111","Bricklayer"],["331112","Stonemason"],["334111","Plumber (General)"],["334112","Airconditioning and Mechanical Services Plumber"],["334113","Drainer"],["334114","Gasfitter"],["334115","Roof Plumber"],["331211","Carpenter and Joiner"],["331212","Carpenter"],["331213","Joiner"],["312113","Building Inspector"],["341111","Electrician (General)"],["341112","Electrician (Special Class)"],["342111","Airconditioning and Refrigeration Mechanic"],["322211","Sheet Metal Worker"],["323214","Metal Machinist"],["312312","Electrical Engineering Technician"],["333212","Solid Plasterer"],["333411","Wall and Floor Tiler"],["333311","Roof Tiler"],["323412","Toolmaker"],["322311","Metal Fabricator"],["321211","Motor Mechanic (General)"],["321111","Automotive Electrician"]] }
+  ]
+};
+/* ======================= END OF VPT CONFIG ======================= */
+
+</script>
+<script>
+(function () {
+  var C = VPT, $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function money(n) { return "$" + Math.round(n).toLocaleString("en-AU"); }
+  var site = C.site || {};
+
+  /* ---------- branding ---------- */
+  if (site.homeUrl) $("logo-link").href = site.homeUrl;
+  var logo = $("logo-img");
+  logo.onerror = function () { logo.hidden = true; $("logo-text").hidden = false; };
+  if (site.logo) logo.src = site.logo; else logo.onerror();
+  if (site.consultUrl) $("head-cta").href = site.consultUrl;
+  if (site.consultLabel) {
+    var short = site.consultLabel.replace(/^Book an? /, ""); short = short.charAt(0).toUpperCase() + short.slice(1);
+    $("head-cta").innerHTML = '<span class="hide-sm">' + esc(site.consultLabel) + '</span><span class="show-sm">' + esc(short) + "</span>";
+  }
+  $("fact-year").querySelector("span").textContent = "Uses the " + C.program.year + " points tables";
+  $("foot-source").innerHTML = 'Points tables from the <a href="' + esc(C.program.sourceUrl) + '">Victorian Points Test page on Live in Melbourne</a>, last checked ' + esc(C.program.checked) + ". Live in Melbourne can change the tables at any time; check the official page before you submit an ROI.";
+
+  /* ---------- priority occupations ---------- */
+  var occIndex = {};
+  C.priority.forEach(function (g) { g.occupations.forEach(function (o) { occIndex[(o[1] + " (" + o[0] + ")").toLowerCase()] = { code: o[0], name: o[1], group: g }; }); });
+  function findOcc(text) {
+    var t = String(text || "").trim().toLowerCase(); if (!t) return null;
+    if (occIndex[t]) return occIndex[t];
+    var hit = null;
+    Object.keys(occIndex).forEach(function (k) { var o = occIndex[k]; if (o.code === t || o.name.toLowerCase() === t) hit = o; });
+    return hit;
+  }
+  var datalist = '<datalist id="occs">' + Object.keys(occIndex).map(function (k) { var o = occIndex[k]; return '<option value="' + esc(o.name + " (" + o.code + ")") + '">'; }).join("") + "</datalist>";
+
+  /* ---------- state ---------- */
+  var S = { partnerIncluded: "", partnerClaimed: "", partnerOcc: "", employed: "", earnings: "", occ: "" };
+  C.factors.forEach(function (f) { if (f.options) S[f.id] = ""; });
+
+  function maxOf(f) {
+    if (f.control === "partner") return C.partner.points;
+    if (f.control === "earnings") return C.earnings[C.earnings.length - 1][1];
+    return Math.max.apply(null, f.options.map(function (o) { return o[1]; }));
+  }
+  var MAX = C.factors.reduce(function (s, f) { return s + maxOf(f); }, 0);
+
+  function earningsBand(n) {
+    var band = null;
+    C.earnings.forEach(function (b, i) { if (n >= b[0]) band = { i: i, min: b[0], max: C.earnings[i + 1] ? C.earnings[i + 1][0] - 1 : null, pts: b[1] }; });
+    return band;
+  }
+
+  /* Points and whether answered, per factor. */
+  function score(f) {
+    if (f.options) {
+      if (S[f.id] === "") return { pts: 0, done: false };
+      return { pts: f.options[+S[f.id]][1], done: true };
+    }
+    if (f.control === "partner") {
+      if (!S.partnerIncluded) return { pts: 0, done: false };
+      if (S.partnerIncluded !== "yes") return { pts: 0, done: true };
+      if (!S.partnerClaimed) return { pts: 0, done: false };
+      if (S.partnerClaimed !== "yes") return { pts: 0, done: true };
+      if (!S.partnerOcc.trim()) return { pts: 0, done: false };
+      return { pts: findOcc(S.partnerOcc) ? C.partner.points : 0, done: true };
+    }
+    if (f.control === "earnings") {
+      if (!S.employed) return { pts: 0, done: false };
+      if (S.employed !== "yes") return { pts: 0, done: true };
+      var n = parseFloat(String(S.earnings).replace(/[^0-9.]/g, ""));
+      if (!(n > 0)) return { pts: 0, done: false };
+      var b = earningsBand(n);
+      return { pts: b ? b.pts : 0, done: true, band: b, amount: n };
+    }
+    return { pts: 0, done: false };
+  }
+
+  /* ---------- form ---------- */
+  function chips(name, opts, cls, cur) {
+    return '<fieldset class="chips ' + (cls || "") + '"><legend class="sr">' + esc(name) + "</legend>" + opts.map(function (o, i) {
+      return '<label class="chip"><input type="radio" name="' + esc(name) + '" value="' + esc(o.value != null ? o.value : i) + '"' + (cur === String(o.value != null ? o.value : i) ? " checked" : "") + "><span>" + esc(o.label) + "</span>" + (o.pts != null ? "<em>+" + o.pts + "</em>" : "") + "</label>";
+    }).join("") + "</fieldset>";
+  }
+  function headHtml(f) {
+    return '<div class="f-head"><h2 id="h-' + f.id + '"><i style="background:' + esc(f.color) + '" aria-hidden="true"></i>' + esc(f.title) + '</h2><span class="f-pts"><b id="pts-' + f.id + '">0</b> of ' + maxOf(f) + "</span></div>";
+  }
+
+  var html = "";
+  C.factors.forEach(function (f) {
+    html += '<fieldset class="factor" id="f-' + f.id + '" aria-labelledby="h-' + f.id + '">' + headHtml(f);
+    if (f.control === "select") {
+      html += '<p class="help">' + esc(f.help) + '</p><div class="field" style="margin-top:0"><label for="in-' + f.id + '">Your age</label><select id="in-' + f.id + '" data-f="' + f.id + '"><option value="">Select your age</option>' +
+        f.options.map(function (o, i) { return '<option value="' + i + '">' + esc(o[0]) + " (" + o[1] + " points)</option>"; }).join("") + '</select></div><div id="msg-' + f.id + '"></div>';
+    } else if (f.control === "choice") {
+      var help = f.help;
+      if (f.id === "skill") help += ' Check yours on the <a href="' + esc(C.program.skillLevelUrl) + '">Home Affairs skilled occupation list</a>.';
+      html += '<p class="help">' + (f.id === "skill" ? help.replace(/^([^<]*)/, function (m) { return esc(m); }) : esc(help)) + "</p>" +
+        chips(f.id, f.options.map(function (o, i) { return { label: o[0], pts: o[1], value: i }; }), f.options.length > 4 ? "wide" : "", S[f.id]);
+      if (f.id === "skill") html += '<div class="field"><label for="in-occ">Your nominated occupation (optional)</label><input id="in-occ" list="occs" autocomplete="off" placeholder="Start typing to see the priority list"><small>This does not change your points. It shows whether you are also considered in a priority industry round.</small></div><div id="msg-occ"></div>';
+    } else if (f.control === "partner") {
+      html += '<p class="help">50 points only if all three conditions are met.</p><p class="sub q" style="background:none;border:0;padding:0;margin:0 0 10px">Will your partner be included in your state nominated visa application?</p>' +
+        chips("partnerIncluded", [{ label: "Yes", value: "yes" }, { label: "No, or I am single", value: "no" }, { label: "My partner is an Australian citizen or permanent resident", value: "au" }], "stack", S.partnerIncluded) +
+        '<div class="sub" id="partner-more" hidden><p class="q">Did you claim 10 points for partner skills in your SkillSelect EOI?</p>' +
+        chips("partnerClaimed", [{ label: "Yes", value: "yes" }, { label: "No", value: "no" }], "", S.partnerClaimed) +
+        '<div class="field" id="partner-occ-field" hidden><label for="in-pocc">Your partner\'s occupation</label><input id="in-pocc" list="occs" autocomplete="off" placeholder="Start typing to see the priority list"><small>It must be a current priority industry occupation.</small></div></div><div id="msg-partner"></div>';
+    } else if (f.control === "earnings") {
+      html += '<p class="help">From your current skilled employment in Victoria. Use the <a href="' + esc(C.program.earningsGuideUrl) + '">Annual Earnings Estimation guide</a> to work out the amount.</p><p class="sub q" style="background:none;border:0;padding:0;margin:0 0 10px">Are you currently in skilled employment in Victoria?</p>' +
+        chips("employed", [{ label: "Yes", value: "yes" }, { label: "No", value: "no" }], "", S.employed) +
+        '<div class="field" id="earn-field" hidden><label for="in-earn">Annual earnings (AUD)</label><div class="money"><input id="in-earn" inputmode="numeric" autocomplete="off" placeholder="95,000"></div><small>Points start at ' + money(C.earnings[0][0]) + " and reach the maximum at " + money(C.earnings[C.earnings.length - 1][0]) + '.</small></div><div id="msg-earnings"></div>';
+    }
+    html += "</fieldset>";
+  });
+  $("form").innerHTML = html + datalist;
+
+  /* ---------- summary ---------- */
+  function tips() {
+    var out = [];
+    var add = function (gain, text) { if (gain > 0) out.push({ gain: gain, text: text }); };
+    C.factors.forEach(function (f) {
+      if (!f.options || S[f.id] === "" || f.id === "age" || f.id === "skill") return;
+      var i = +S[f.id], top = f.options.length - 1;
+      if (i >= top) return;
+      if (f.id === "experience") add(f.options[i + 1][1] - f.options[i][1], "Reaching " + f.options[i + 1][0] + " of experience would add <b>" + (f.options[i + 1][1] - f.options[i][1]) + " points</b>.");
+      else if (f.id === "english") add(f.options[top][1] - f.options[i][1], "Superior English would add <b>" + (f.options[top][1] - f.options[i][1]) + " points</b>" + (i === 0 ? ", or Proficient <b>" + (f.options[1][1] - f.options[0][1]) + "</b>" : "") + ".");
+      else if (f.id === "education") add(f.options[i + 1][1] - f.options[i][1], "A " + f.options[i + 1][0] + " qualification would add <b>" + (f.options[i + 1][1] - f.options[i][1]) + " points</b>.");
+    });
+    var e = score(C.factors.filter(function (f) { return f.control === "earnings"; })[0]);
+    if (e.done && e.amount != null) {
+      var nextI = e.band ? e.band.i + 1 : 0;
+      if (C.earnings[nextI]) add(C.earnings[nextI][1] - (e.band ? e.band.pts : 0), "Earnings of " + money(C.earnings[nextI][0]) + " or more would add <b>" + (C.earnings[nextI][1] - (e.band ? e.band.pts : 0)) + " points</b>.");
+    }
+    return out.sort(function (a, b) { return b.gain - a.gain; }).slice(0, 3);
+  }
+
+  function renderSummary() {
+    var total = 0, done = 0, rows = "", seg = "";
+    C.factors.forEach(function (f) {
+      var s = score(f); total += s.pts; if (s.done) done++;
+      $("pts-" + f.id).textContent = s.pts;
+      rows += '<li><i style="background:' + esc(f.color) + '"></i><span>' + esc(f.title) + "</span><b>" + (s.done ? s.pts : "–") + " <small>/ " + maxOf(f) + "</small></b></li>";
+      if (s.pts > 0) seg += '<i style="width:' + (s.pts / MAX * 100).toFixed(2) + "%;background:" + esc(f.color) + '" title="' + esc(f.title + ": " + s.pts) + '"></i>';
+    });
+    var t = tips();
+    var cta = site.consultUrl || site.contactUrl ? '<div class="cta"><h3>Want a higher VPT total?</h3><p>A PFEC migration agent can check your claims, your SkillSelect EOI and your Victorian ROI, and show you where you could gain points.</p><div class="cta-btns">' +
+      (site.consultUrl ? '<a class="pill coral" href="' + esc(site.consultUrl) + '">' + esc(site.consultLabel || "Book a consultation") + "</a>" : "") +
+      (site.contactUrl ? '<a class="pill outline" href="' + esc(site.contactUrl) + '">' + esc(site.contactLabel || "Contact us") + "</a>" : "") + "</div></div>" : "";
+    $("summary").innerHTML = '<h2 id="sum-h">Your estimated VPT total</h2><div class="total"><b id="total">' + total + "</b><span>of " + MAX + ' maximum</span></div><p class="answered">' +
+      (done === C.factors.length ? "All " + done + " factors answered." : done + " of " + C.factors.length + " factors answered.") + '</p><div class="meter" role="img" aria-label="' + total + " of " + MAX + ' points">' + seg + '</div><ul class="legend">' + rows + "</ul>" +
+      (t.length ? '<div class="tips"><h3>Where you could gain points</h3><ul>' + t.map(function (x) { return "<li>" + x.text + "</li>"; }).join("") + "</ul></div>" : "") +
+      '<p class="note">There is no pass mark. Invitations go to the highest totals in each round, so compare your total with the current pool rather than a target.</p>' + cta +
+      '<div class="actions"><button type="button" class="btn" id="print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg>Print or save</button><button type="button" class="btn" id="reset">Start again</button></div>';
+    $("mbar-total").textContent = total + " / " + MAX;
+    $("print").onclick = function () { window.print(); };
+    $("reset").onclick = reset;
+  }
+
+  /* ---------- messages under factors ---------- */
+  function renderMessages() {
+    var age = C.factors[0];
+    var aw = S.age !== "" && age.warn ? age.warn[age.options[+S.age][0]] : "";
+    $("msg-age").innerHTML = aw ? '<p class="warn">' + esc(aw) + "</p>" : "";
+
+    $("partner-more").hidden = S.partnerIncluded !== "yes";
+    $("partner-occ-field").hidden = S.partnerClaimed !== "yes";
+    var pm = "";
+    if (S.partnerIncluded === "yes" && S.partnerClaimed === "no") pm = '<p class="infomsg">No partner points: you need to claim 10 points for partner skills in your EOI.</p>';
+    if (S.partnerIncluded === "yes" && S.partnerClaimed === "yes" && S.partnerOcc.trim()) {
+      var po = findOcc(S.partnerOcc);
+      pm = po ? '<p class="okmsg">' + esc(po.name) + " is a priority occupation (" + esc(po.group.industry) + "). +" + C.partner.points + " points.</p>"
+        : '<p class="infomsg">This is not a current priority industry occupation, so no partner points. Pick from the list if your partner\'s occupation is on it.</p>';
+    }
+    $("msg-partner").innerHTML = pm;
+
+    $("earn-field").hidden = S.employed !== "yes";
+    var em = "", e = score(C.factors.filter(function (f) { return f.control === "earnings"; })[0]);
+    if (e.done && e.amount != null) em = e.band ? '<p class="okmsg">Band ' + money(e.band.min) + (e.band.max ? "–" + money(e.band.max) : " and over") + ": +" + e.band.pts + " points.</p>" : '<p class="infomsg">Earnings below ' + money(C.earnings[0][0]) + " score no points.</p>";
+    $("msg-earnings").innerHTML = em;
+
+    var om = "";
+    if (S.occ.trim()) {
+      var o = findOcc(S.occ), exp = C.factors.filter(function (f) { return f.id === "experience"; })[0], eng = C.factors.filter(function (f) { return f.id === "english"; })[0];
+      if (o) {
+        om = '<p class="okmsg">' + esc(o.name) + " is a " + esc(C.program.year) + " priority occupation (" + esc(o.group.industry) + "). You are considered in that priority industry round as well as the most competitive round.</p>";
+        if (o.group.note) om += '<p class="infomsg">' + esc(o.group.note) + "</p>";
+      } else om = '<p class="infomsg">Not on the ' + esc(C.program.year) + " priority list. You are still considered in the most competitive round if your occupation is eligible.</p>";
+    }
+    $("msg-occ").innerHTML = om;
+  }
+
+  function update() { renderMessages(); renderSummary(); }
+
+  function reset() {
+    Object.keys(S).forEach(function (k) { S[k] = ""; });
+    $("form").querySelectorAll("input[type=radio]").forEach(function (r) { r.checked = false; });
+    $("form").querySelectorAll("select,input:not([type=radio])").forEach(function (el) { el.value = ""; });
+    update();
+    $("form").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  $("form").addEventListener("change", function (ev) {
+    var el = ev.target;
+    if (el.type === "radio") S[el.name] = el.value;
+    else if (el.dataset.f) S[el.dataset.f] = el.value;
+    else return; /* text boxes are handled on input, so the summary isn't redrawn mid-click */
+    update();
+  });
+  $("form").addEventListener("input", function (ev) {
+    var el = ev.target;
+    if (el.id === "in-earn") S.earnings = el.value;
+    if (el.id === "in-pocc") S.partnerOcc = el.value;
+    if (el.id === "in-occ") S.occ = el.value;
+    if (el.id === "in-earn" || el.id === "in-pocc" || el.id === "in-occ") update();
+  });
+  $("in-earn").addEventListener("blur", function () {
+    var n = parseFloat(String(this.value).replace(/[^0-9.]/g, ""));
+    if (n > 0) this.value = Math.round(n).toLocaleString("en-AU");
+  });
+  $("mbar-btn").onclick = function () { $("summary").scrollIntoView({ behavior: "smooth", block: "start" }); };
+
+  /* Priority list for the "How the VPT works" section */
+  $("priority-list").innerHTML = "<p>Your occupation's industry decides which priority round you are also ranked in. Partner points need your partner's occupation to be on this list.</p>" + C.priority.map(function (g) {
+    return "<h4>" + esc(g.industry) + "</h4>" + (g.note ? "<p>" + esc(g.note) + "</p>" : "") + '<table><thead><tr><th scope="col">ANZSCO</th><th scope="col">Occupation</th></tr></thead><tbody>' + g.occupations.map(function (o) { return "<tr><td>" + esc(o[0]) + "</td><td>" + esc(o[1]) + "</td></tr>"; }).join("") + "</tbody></table>";
+  }).join("");
+
+  /* Embed mode: report height to the parent page */
+  if (window.parent !== window && document.documentElement.classList.contains("embed")) {
+    var lastH = 0, post = function () { var h = Math.ceil(document.documentElement.scrollHeight); if (h !== lastH) { lastH = h; window.parent.postMessage({ type: "pfec-checker-height", height: h }, "*"); } };
+    if (window.ResizeObserver) new ResizeObserver(post).observe(document.body); else setInterval(post, 500);
+    window.addEventListener("load", post);
+  }
+
+  update();
+})();
+
+</script>
+</body>
+</html>
