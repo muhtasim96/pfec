@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Student visa location checker | PFEC Global</title>
+<meta name="description" content="Check whether you can apply for an Australian Student visa (subclass 500) from inside Australia under the rules starting 2 October 2026.">
+<script>if(/[?&]embed\b/.test(location.search)){document.documentElement.className+=" embed";document.write('<base target="_top">');}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   THEME  —  PFEC Global brand tokens, taken from pfecglobal.com.au.
+   Change these and the whole page follows.
+   ===================================================================== */
+:root{
+  --navy:#1D297C;        /* PFEC navy: header logo, hero, primary buttons */
+  --navy-deep:#141D5E;   /* hero background */
+  --navy-tint:#EEF0FA;
+  --coral:#D63F2B;       /* PFEC coral (#E84B37), darkened for readable white text */
+  --coral-hover:#C2361F;
+  --ink:#1E293B;         /* headings */
+  --body:#334155;        /* body text */
+  --mute:#5B6B82;
+  --line:#E2E8F0;
+  --line-strong:#CBD5E1;
+  --bg:#F5F7FB;
+  --surface:#FFFFFF;
+  --on:#16794C;  --on-bg:#E7F5EE;  --on-line:#A7D9BF;
+  --off:#B42318; --off-bg:#FEF1F0; --off-line:#F7B9B3;
+  --rev:#8A5A0B; --rev-bg:#FDF7E4; --rev-line:#EBCF85;
+  --neu:#475569; --neu-bg:#F1F5F9; --neu-line:#CBD5E1;
+  --display:"Yeseva One",Georgia,"Times New Roman",serif;
+  --sans:Montserrat,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+/* ======================= END OF THEME ======================= */
+
+*,*:before,*:after{box-sizing:border-box}
+[hidden]{display:none!important}
+.show-sm{display:none}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);font:400 16px/1.6 var(--sans)}
+button,input{font:inherit;color:inherit}
+a{color:var(--navy)}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+
+/* Header */
+.site-head{background:var(--surface);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.logo{display:inline-flex;align-items:center;text-decoration:none;color:var(--navy)}
+.logo img{height:42px;width:auto;display:block}
+.logo-text{font:700 20px/1 var(--sans);letter-spacing:-.01em}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 22px;font:600 14px/1.2 var(--sans);text-decoration:none;border:0;cursor:pointer;white-space:nowrap}
+.pill.coral{background:var(--coral);color:#fff}
+.pill.coral:hover{background:var(--coral-hover)}
+.pill.light{background:#fff;color:var(--navy)}
+@media (max-width:520px){.site-head .pill{padding:9px 14px;font-size:13px}.logo img{height:34px}.hide-sm{display:none}.show-sm{display:inline!important}.hero{padding:36px 0 96px}.hero .lede{font-size:16px}.facts{font-size:13.5px}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:var(--navy-deep);color:#fff;padding:56px 0 120px}
+.hero:before,.hero:after{content:"";position:absolute;top:-10%;bottom:-10%;width:220px;background:rgba(255,255,255,.05);transform:skewX(-18deg)}
+.hero:before{right:14%}
+.hero:after{right:calc(14% + 250px);width:120px;background:rgba(255,255,255,.035)}
+.hero .wrap{position:relative}
+.hero h1{font:400 clamp(32px,5.2vw,50px)/1.12 var(--display);margin:0 0 16px;max-width:760px;color:#fff;letter-spacing:.005em}
+.hero .lede{font-size:17px;line-height:1.65;color:#D5DAF2;max-width:640px;margin:0 0 26px}
+.facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:14px;color:#E4E8F8}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts svg{flex:none;width:18px;height:18px;stroke:#fff;opacity:.85}
+
+/* Checker panel */
+.shell{position:relative;margin-top:-80px;padding-bottom:40px}
+.panel{background:var(--surface);border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.06),0 12px 32px rgba(15,23,42,.08);overflow:hidden}
+.steps{list-style:none;margin:0;padding:18px 28px;display:flex;gap:8px;border-bottom:1px solid var(--line);overflow-x:auto}
+.steps li{flex:1 1 0;min-width:120px;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--mute)}
+.steps li:not(:last-child):after{content:"";flex:1;height:2px;background:var(--line);border-radius:2px;min-width:12px}
+.steps .n{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line-strong);background:#fff;font-size:12px;color:var(--mute)}
+.steps li.done .n{background:var(--navy);border-color:var(--navy);color:#fff}
+.steps li.done:not(:last-child):after{background:var(--navy)}
+.steps li.current{color:var(--ink)}
+.steps li.current .n{border-color:var(--navy);color:var(--navy);box-shadow:0 0 0 4px var(--navy-tint)}
+.steps .t{white-space:nowrap}
+@media (max-width:700px){.steps{padding:14px 16px;gap:6px}.steps li{flex:0 0 auto;min-width:0}.steps li.current{flex:1 1 auto}.steps li:after{display:none!important}.steps li:not(.current) .t{display:none}}
+
+.panel-body{display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:920px){.panel-body{grid-template-columns:minmax(0,1fr) 300px}}
+.stage{padding:32px 32px 36px;min-height:420px}
+@media (max-width:600px){.stage{padding:24px 18px 28px;min-height:0}}
+.answers{background:#FAFBFD;border-top:1px solid var(--line);padding:26px 24px}
+@media (min-width:920px){.answers{border-top:0;border-left:1px solid var(--line)}}
+.answers h2{font:600 15px/1.3 var(--sans);color:var(--ink);margin:0 0 14px}
+.answers ol{list-style:none;margin:0;padding:0}
+.answers li{padding:12px 0;border-top:1px solid var(--line)}
+.answers li:first-child{border-top:0;padding-top:0}
+.answers .q{font-size:12.5px;color:var(--mute);line-height:1.45}
+.answers .a{font-size:14px;font-weight:600;color:var(--ink);line-height:1.45;margin-top:2px}
+.answers button{margin-top:4px;background:none;border:0;padding:0;font-size:12.5px;font-weight:600;color:var(--navy);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.answers .empty{font-size:14px;color:var(--mute);margin:0}
+
+/* Questions */
+.tag{display:inline-block;font-size:12.5px;font-weight:600;color:var(--navy);background:var(--navy-tint);border-radius:999px;padding:4px 12px;margin-bottom:14px}
+.q-title{font:600 clamp(21px,2.6vw,26px)/1.3 var(--sans);color:var(--ink);margin:0 0 8px;letter-spacing:-.01em;max-width:680px}
+.q-title:focus{outline:none}
+.q-hint{font-size:14.5px;color:var(--mute);margin:0 0 22px;max-width:640px}
+.choices{display:grid;gap:10px;max-width:680px;border:0;padding:0;margin:0}
+.choice{position:relative;display:flex;gap:14px;align-items:flex-start;padding:15px 18px;border:1.5px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;transition:border-color .15s,background-color .15s}
+.choice:hover{border-color:var(--line-strong);background:#FAFBFD}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice .dot{flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;border:2px solid var(--line-strong);background:#fff;transition:border-color .15s,box-shadow .15s}
+.choice b{display:block;font-weight:600;color:var(--ink);line-height:1.45}
+.choice small{display:block;font-size:13.5px;color:var(--mute);line-height:1.5;margin-top:3px}
+.choice:has(input:checked){border-color:var(--navy);background:var(--navy-tint)}
+.choice:has(input:checked) .dot{border-color:var(--navy);box-shadow:inset 0 0 0 4px #fff;background:var(--navy)}
+.choice:has(input:focus-visible){outline:3px solid var(--coral);outline-offset:2px}
+.choice.quiet{border-style:dashed}
+.choice.quiet b{font-weight:500}
+
+.checklist{max-width:760px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.crow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 20px;align-items:center;padding:14px 18px;border-top:1px solid var(--line);background:#fff}
+.crow:first-child{border-top:0}
+.crow.missing{background:#FFF6F4}
+.crow b{display:block;font-weight:600;color:var(--ink);font-size:15px;line-height:1.45}
+.crow small{display:block;font-size:13px;color:var(--mute);line-height:1.5;margin-top:3px}
+@media (max-width:640px){.crow{grid-template-columns:minmax(0,1fr)}}
+.seg{display:inline-flex;border:1.5px solid var(--line-strong);border-radius:10px;overflow:hidden;background:#fff}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;padding:8px 14px;font-size:13.5px;font-weight:600;color:var(--body);border-left:1.5px solid var(--line-strong);min-width:56px;text-align:center}
+.seg label:first-child span{border-left:0}
+.seg label:hover span{background:var(--bg)}
+.seg input:checked+span{background:var(--navy);color:#fff}
+.seg input[value="unsure"]:checked+span{background:var(--rev);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--coral);outline-offset:-3px}
+.list-tools{display:flex;justify-content:flex-end;max-width:760px;margin:-10px 0 10px}
+.linkish{background:none;border:0;padding:0;font-size:13.5px;font-weight:600;color:var(--navy);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+.choice-wrap{display:grid;gap:0}
+.choice.has-sub:has(input:checked){border-bottom-left-radius:0;border-bottom-right-radius:0}
+.sub{border:1.5px solid var(--navy);border-top:0;border-radius:0 0 12px 12px;background:#fff;padding:16px 18px 18px 52px;display:grid;gap:14px}
+@media (max-width:600px){.sub{padding:14px 14px 16px}}
+.sub-title{margin:0;font-size:13px;font-weight:600;color:var(--mute)}
+.field{display:grid;gap:6px;max-width:520px}
+.field label{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.4}
+.field small{font-size:13px;color:var(--mute);margin-top:-4px}
+.field input,.field select{width:100%;font:500 16px/1.3 var(--sans);color:var(--ink);background:#fff;border:1.5px solid var(--line-strong);border-radius:10px;padding:11px 12px;min-height:46px}
+.field select{appearance:none;-webkit-appearance:none;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231D297C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px}
+.field input:hover,.field select:hover{border-color:var(--navy)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px var(--navy-tint)}
+.field.missing input,.field.missing select{border-color:var(--coral);background-color:#FFF6F4}
+.exbox{border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:760px}
+.exhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 16px;background:#FAFBFD}
+.exhead b{display:block;color:var(--ink);font-weight:600;line-height:1.45}
+.exhead small{display:block;font-size:13px;color:var(--mute);margin-top:2px}
+table.exdetails{border-collapse:collapse;width:100%;font-size:14px}
+.exdetails td{padding:9px 16px;border-top:1px solid var(--line);vertical-align:top}
+.exdetails td:first-child{color:var(--mute);width:55%}
+.exdetails td:last-child{color:var(--ink);font-weight:600}
+.exwhy{margin:0!important;padding:12px 16px;border-top:1px solid var(--line);font-size:14.5px;color:var(--ink)}
+.applink{color:var(--navy);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.applink:hover{color:var(--coral)}
+.sub-note{margin:0;padding:10px 14px;border-radius:10px;background:var(--rev-bg);border:1px solid var(--rev-line);color:var(--ink);font-size:14px;font-weight:600}
+.answers-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:14px}
+.answers-head h2{margin:0!important}
+.trail-restart{background:none;border:0;padding:0;font-size:12.5px;font-weight:600;color:var(--coral);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.rsec.fam p{margin:0 0 8px}
+.rsec.fam .fam-always{color:var(--ink);font-weight:500;background:var(--navy-tint);border-radius:10px;padding:10px 14px}
+.btn.small{padding:9px 16px;font-size:14px;margin-top:6px}
+.err{color:var(--coral);font-size:14px;font-weight:600;margin:14px 0 0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:12px 22px;font:600 15px/1.2 var(--sans);cursor:pointer;border:1.5px solid transparent;text-decoration:none}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.primary:hover{background:#16206A}
+.btn.ghost{background:#fff;color:var(--ink);border-color:var(--line-strong)}
+.btn.ghost:hover{border-color:var(--navy);color:var(--navy)}
+.btn svg{width:16px;height:16px}
+.actions .spacer{flex:1}
+
+/* Result report */
+.verdict{display:flex;gap:18px;align-items:flex-start;padding:24px;border-radius:14px;border:1.5px solid;margin-bottom:26px}
+.verdict .ic{flex:none;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;color:#fff}
+.verdict .ic svg{width:26px;height:26px}
+.verdict .badge{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.01em;margin-bottom:6px}
+.verdict h2{font:400 clamp(24px,3.2vw,32px)/1.2 var(--display);color:var(--ink);margin:0 0 8px}
+.verdict h2:focus{outline:none}
+.verdict p{margin:0;color:var(--body);font-size:15.5px}
+.t-onshore .verdict{background:var(--on-bg);border-color:var(--on-line)} .t-onshore .ic{background:var(--on)} .t-onshore .badge{color:var(--on)}
+.t-offshore .verdict{background:var(--off-bg);border-color:var(--off-line)} .t-offshore .ic{background:var(--off)} .t-offshore .badge{color:var(--off)}
+.t-review .verdict{background:var(--rev-bg);border-color:var(--rev-line)} .t-review .ic{background:var(--rev)} .t-review .badge{color:var(--rev)}
+.t-neutral .verdict{background:var(--neu-bg);border-color:var(--neu-line)} .t-neutral .ic{background:var(--neu)} .t-neutral .badge{color:var(--neu)}
+@media (max-width:520px){.verdict{flex-direction:column;padding:20px}}
+
+.rsec{padding:20px 0;border-top:1px solid var(--line)}
+.rsec:first-of-type{border-top:0;padding-top:0}
+.rsec h3{font:600 16px/1.35 var(--sans);color:var(--ink);margin:0 0 10px}
+.rsec p{margin:0;max-width:680px}
+.rsec ul{margin:0;padding-left:20px;max-width:700px}
+.rsec li{margin:6px 0}
+ol.next{list-style:none;margin:0;padding:0;counter-reset:n;max-width:700px;display:grid;gap:10px}
+ol.next li{counter-increment:n;position:relative;margin:0;padding:12px 16px 12px 54px;border:1px solid var(--line);border-radius:12px;background:#FAFBFD;color:var(--ink);line-height:1.55}
+ol.next li:before{content:counter(n);position:absolute;left:14px;top:11px;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+ol.next .imp{display:inline-block;vertical-align:1px;margin-right:8px;font-size:11.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--rev);background:var(--rev-bg);border:1px solid var(--rev-line);border-radius:999px;padding:1px 9px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table.assess{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.assess th{text-align:left;font-size:12.5px;font-weight:600;color:var(--mute);background:#FAFBFD;padding:10px 14px;border-bottom:1px solid var(--line)}
+.assess td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
+.assess tr:first-child td{border-top:0}
+.assess td:first-child{color:var(--ink);font-weight:500}
+.assess td.ref{color:var(--mute);font-size:13px;white-space:nowrap}
+.st{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.st.yes{background:var(--on-bg);color:var(--on)}
+.st.no{background:var(--neu-bg);color:var(--neu)}
+.st.fail{background:var(--off-bg);color:var(--off)}
+.exwhy.bad{background:var(--off-bg)}
+.st.unsure{background:var(--rev-bg);color:var(--rev)}
+.fine{font-size:13px;color:var(--mute);margin-top:10px!important}
+
+.cta{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between;margin:0 0 26px;padding:22px 24px;border-radius:14px;background:var(--navy);color:#fff}
+.cta>div:first-child{flex:1 1 320px}
+.cta h3{font:600 17px/1.35 var(--sans);margin:0 0 6px;color:#fff}
+.cta p{margin:0;font-size:14.5px;line-height:1.6;color:#D5DAF2;max-width:560px}
+.cta-btns{display:flex;flex-wrap:wrap;gap:10px}
+.pill.outline{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.pill.outline:hover{background:rgba(255,255,255,.1)}
+.cta-end{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-top:22px;padding:18px 20px;border:1.5px solid var(--line);border-radius:14px;background:#FAFBFD}
+.cta-end p{margin:0;font-size:14.5px;color:var(--body)}
+.cta-end b{color:var(--ink)}
+.cta-end .pill.outline{color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy)}
+.cta-end .pill.outline:hover{background:var(--navy-tint)}
+.inline-cta{font-weight:600;color:var(--coral);white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.inline-cta:hover{color:var(--coral-hover)}
+.disclaimer{margin:0;padding:16px 28px;border-top:1px solid var(--line);font-size:13px;color:var(--mute);background:#FAFBFD}
+
+/* Reference + footer */
+.refs{margin-top:36px}
+.refs h2{font:400 26px/1.2 var(--display);color:var(--ink);margin:0 0 14px}
+.refs details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.refs summary{cursor:pointer;padding:16px 20px;font-weight:600;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:12px}
+.refs summary::-webkit-details-marker{display:none}
+.refs summary:after{content:"+";font-size:20px;line-height:1;color:var(--navy)}
+.refs details[open] summary:after{content:"\2013"}
+.refs .body{padding:0 20px 18px}
+.refs ul.cols{margin:0;padding-left:20px;font-size:14.5px}
+.refs ul.c2{columns:2;column-gap:32px}
+@media (max-width:600px){.refs ul.c2{columns:1}}
+.refs table{border-collapse:collapse;width:100%;font-size:14.5px}
+.refs td{padding:8px 0;border-top:1px solid var(--line);vertical-align:top}
+.refs tr:first-child td{border-top:0}
+.refs td:first-child{color:var(--mute);width:96px}
+.refs .note{font-size:13.5px;color:var(--mute);margin:12px 0 0}
+.site-foot{margin-top:40px;padding:28px 0 48px;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}
+.site-foot p{margin:0 0 8px;max-width:820px}
+
+/* Decision map (add #map to the address) */
+.map-view{padding:32px 0 48px}
+.map-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.map-top h1{font:400 32px/1.2 var(--display);color:var(--ink);margin:0}
+.stats{color:var(--mute);font-size:14px;margin:0 0 14px}
+.issues{border-radius:10px;padding:12px 16px;font-size:14px;margin-bottom:14px;border:1px solid}
+.issues.ok{background:var(--on-bg);color:var(--on);border-color:var(--on-line)}
+.issues.bad{background:var(--rev-bg);color:var(--rev);border-color:var(--rev-line)}
+.issues ul{margin:6px 0 0;padding-left:20px}
+.canvas{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;overflow:auto;max-height:80vh}
+.canvas svg{height:auto}
+textarea{width:100%;min-height:240px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;color:var(--ink)}
+.map-view details{margin-top:16px}
+.map-view summary{cursor:pointer;font-weight:600;color:var(--ink)}
+
+.print-head{display:none}
+@media print{
+  .trail-restart,#fam-check{display:none!important}
+  @page{margin:16mm}
+  body{background:#fff;font-size:11pt}
+  .site-head,.hero,.steps,.refs,.site-foot,.actions,.answers button,.cta .pill,.list-tools,.mbar{display:none!important}
+  body.has-bar{padding-bottom:0}
+  .print-head{display:block;font:600 12pt var(--sans);color:var(--navy);margin-bottom:10px}
+  .shell{margin:0;padding:0}
+  .panel{box-shadow:none;border-radius:0}
+  .panel-body{display:block}
+  .stage{padding:0;min-height:0}
+  .answers{border:0;background:#fff;padding:16px 0 0;break-inside:avoid}
+  .cta,.cta-end{background:#fff;color:var(--ink);border:1px solid var(--line);padding:12px 14px}
+  .cta h3{color:var(--ink)} .cta p{color:var(--body)} .cta-btns{display:none}
+  ol.next li{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .disclaimer{background:#fff;padding:12px 0 0}
+  .verdict,.rsec{break-inside:avoid}
+}
+
+/* ---------- Phones ---------- */
+@media (max-width:600px){
+  .wrap{padding:0 12px}
+  .hero{padding:24px 0 84px}
+  .hero h1{font-size:27px;line-height:1.18;margin-bottom:10px}
+  .hero .lede{font-size:15px;line-height:1.55;margin-bottom:14px}
+  .facts{gap:6px 16px;font-size:12.5px}
+  .facts li:nth-child(2){display:none}
+  .shell{margin-top:-66px}
+  .stage{padding:22px 16px 24px}
+  .q-title{font-size:20px}
+  .choice{padding:14px}
+  .verdict{flex-direction:row;flex-wrap:wrap;gap:12px;padding:18px}
+  .verdict .ic{width:40px;height:40px;border-radius:10px}
+  .verdict .ic svg{width:22px;height:22px}
+  .verdict>div:last-child{flex:1 1 200px}
+  .verdict h2{font-size:24px}
+  .cta{padding:20px 18px}
+  .cta-btns{width:100%;flex-direction:column}
+  .cta-btns .pill{width:100%;padding:13px 18px;font-size:15px}
+  .cta-end{padding:16px}
+  .actions{flex-direction:column;align-items:stretch}
+  .actions .btn{justify-content:center;width:100%}
+  .actions .spacer{display:none}
+  .exhead{flex-direction:column;gap:8px}
+  .exdetails tr{display:block;border-top:1px solid var(--line);padding:9px 16px}
+  .exdetails td{display:block;border:0;padding:0;width:auto!important}
+  .exdetails td:first-child{font-size:13px;margin-bottom:2px}
+  ol.next li{padding:12px 14px 12px 50px}
+  ol.next li:before{left:12px}
+  .answers{padding:22px 16px}
+  .seg{display:flex;width:100%}
+  .seg label{flex:1}
+  .seg span{min-width:0;padding:10px 6px}
+  .disclaimer{padding:14px 16px}
+  .refs h2{font-size:22px}
+  body.has-bar{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+}
+/* Sticky booking bar on phones, results only */
+.mbar{display:none}
+@media (max-width:600px){
+  body.has-bar .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(15,23,42,.08)}
+  .mbar .pill{flex:1;padding:13px 10px;font-size:14.5px}
+  .mbar .pill.outline{color:var(--navy);box-shadow:inset 0 0 0 1.5px var(--navy)}
+}
+/* Embed mode (?embed in the address): no site header, banner or footer */
+html.embed body{background:transparent}
+html.embed .site-head,html.embed .hero,html.embed .site-foot{display:none!important}
+html.embed .shell{margin-top:0;padding:14px 0 16px}
+html.embed .mbar{display:none!important}
+html.embed body.has-bar{padding-bottom:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="wrap head-row">
+  <a class="logo" id="logo-link" href="https://pfecglobal.com.au/"><img id="logo-img" alt="PFEC Global" width="126" height="42"><span class="logo-text" id="logo-text" hidden>PFEC Global</span></a>
+  <a class="pill coral" id="head-cta" href="https://pfecglobal.com.au/contact-us/">Book a free consultation</a>
+</div></header>
+
+<div id="checker-view">
+  <section class="hero"><div class="wrap">
+    <h1>Can you apply for your Student visa from inside Australia?</h1>
+    <p class="lede">Answer a few questions to see where you can lodge a Student visa (subclass 500) under the rules that start on 2 October 2026, and whether family can be included.</p>
+    <ul class="facts">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>About 3 minutes</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>Have your visa grant notice or VEVO ready</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Nothing you enter is saved or sent</li>
+    </ul>
+  </div></section>
+
+  <main class="wrap shell">
+    <div class="panel">
+      <div class="print-head">PFEC Global · Student visa location check</div>
+      <ol class="steps" id="steps" aria-label="Progress"></ol>
+      <div class="panel-body">
+        <div class="stage" id="app" aria-live="polite"></div>
+        <aside class="answers" aria-label="Your answers"><div class="answers-head"><h2>Your answers</h2><button type="button" class="trail-restart" id="trail-restart" hidden>Start again</button></div><div id="trail"></div></aside>
+      </div>
+      <p class="disclaimer">General information only, not migration advice. It applies to applications made on or after 2 October 2026; applications lodged earlier and not yet decided are not affected. Confirm your situation with a registered migration agent or the Department of Home Affairs before you lodge.</p>
+    </div>
+
+    <section class="refs" aria-labelledby="refs-h"><h2 id="refs-h">Appendices</h2><div id="refs"></div></section>
+
+    <footer class="site-foot">
+      <p>Legal basis: Migration Regulations 1994, Schedule 1 item 1222 and clause 500.411, as amended by the Migration Amendment (Student Visa Reform) Regulations 2026 (F2026L01347); exemption and family classes in LIN 20/158 sections 16 to 23, as amended by LIN 26/087 (F2026L01349); blocked visas in LIN 26/102 (F2026L01348). These apply to applications made on or after 2 October 2026.</p>
+      <p>© PFEC Global. Migration advice is provided by MARA-registered agents.</p>
+    </footer>
+  </main>
+</div>
+
+<div class="mbar" id="mbar" aria-label="Talk to PFEC"></div>
+
+<div id="map-view" hidden>
+  <div class="wrap map-view">
+    <div class="map-top"><h1>Decision map</h1>
+      <div class="actions" style="margin:0"><button class="btn ghost" id="zoom" hidden>Actual size</button><button class="btn ghost" id="copy-src">Copy Mermaid source</button><button class="btn ghost" id="dl-src">Download .mmd</button><a class="btn primary" href="#" id="to-checker">Back to checker</a></div>
+    </div>
+    <p class="stats" id="stats"></p>
+    <div id="issues"></div>
+    <div class="canvas" id="canvas">Drawing the map…</div>
+    <details><summary>Mermaid source (generated from the config)</summary><textarea id="src" readonly spellcheck="false"></textarea></details>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   CHECKER CONFIG  —  edit this block to change questions, streams,
+   options and results. The checker AND the decision map (add #map to
+   the page address) are both generated from this data.
+   ---------------------------------------------------------------------
+   site        : logo, consultation link and other page-wide settings.
+   groups      : the steps shown in the progress bar at the top of the
+                 checker. Each question names its group.
+   streams     : named branches (Main applicant, Family member...).
+   notSure     : every "single" question gets a "Not sure" answer that
+                 goes here, unless the question sets notSure:false or
+                 its own ifNotSure.
+   questions   : two types.
+     type:"single"     pick one answer. Each option needs `next`.
+                       An option can open a sub-menu of follow-up fields
+                       with `sub`: { fields, rule, pass, fail, unsure }.
+                       The rule (in the RULES block below this config)
+                       checks the fields and sends the user to pass, fail
+                       or unsure. A field can use showIf to appear only
+                       after another field has a given answer, and
+                       `note` shows a highlighted message in the sub-menu.
+     type:"checklist"  answer Yes / No / Not sure for every item.
+                       ifAnyYes  -> at least one Yes
+                       ifUnsure  -> no Yes, but at least one Not sure
+                       ifAllNo   -> every item is No
+   toneDefaults: the "where to be at grant" line and "next steps" used
+                 by every result of that tone, unless a result sets its
+                 own `grant` or `next`.
+   results     : end points. tone is onshore, offshore, review or
+                 neutral. `assessment` names a question whose answers
+                 are shown on the result: each checklist item, or the
+                 exemption chosen and the details checked.
+                 `actions` add buttons that jump to a question.
+   `next`, `ifAnyYes`, `ifAllNo`, `ifUnsure`, `ifNotSure` and `goTo` can
+   point at any question id or result id. `short` is the label used on
+   the decision map and in "Your answers".
+   ===================================================================== */
+/* AQF levels used by the course progression dropdowns. */
+var AQF_LEVELS = [["1", "Level 1: Certificate I"], ["2", "Level 2: Certificate II"], ["3", "Level 3: Certificate III"], ["4", "Level 4: Certificate IV"], ["5", "Level 5: Diploma"], ["6", "Level 6: Advanced Diploma / Associate Degree"], ["7", "Level 7: Bachelor Degree"], ["8", "Level 8: Graduate Certificate / Graduate Diploma / Honours"], ["9", "Level 9: Master Degree"], ["10", "Level 10: Doctoral Degree"]];
+
+var CHECKER = {
+  startAt: "who",
+
+  site: {
+    name: "PFEC Global",
+    logo: "https://pfecglobal.com.au/wp-content/uploads/2025/04/Asset-1@4x-1-1.png",
+    homeUrl: "https://pfecglobal.com.au/",
+    consultUrl: "https://pfecglobal.com.au/contact-us/",   /* booking page: change if you add one */
+    consultLabel: "Book a free consultation",
+    contactUrl: "https://pfecglobal.com.au/contact-us/",
+    contactLabel: "Contact us",
+    enableMap: true    /* set to false to switch off the #map decision map on the live site */
+  },
+
+  groups: [
+    { id: "situation",   label: "Your situation" },
+    { id: "visa",        label: "Your visa" },
+    { id: "eligibility", label: "Exemptions" }
+  ],
+
+  streams: {
+    student: { label: "Main applicant" },
+    family:  { label: "Family member" }
+  },
+
+  /* "Family members" section on main applicant results (onshore and offshore).
+     A p3 option or a result can set its own `family` text instead of `text`. */
+  familyNote: {
+    title: "Family members",
+    text: "Family members can only be included in limited cases. Use the family member check to see if yours can.",
+    always: "Everyone included must be in one combined application, lodged at the same time and from the same place as you. No one can be added to your Student visa after it is granted.",
+    action: { label: "Check if family can be included", goTo: "f1" }
+  },
+
+  notSure: { label: "Not sure", detail: "Talk it through with a registered migration agent and book a consultation", goTo: "review" },
+
+  questions: {
+    who: {
+      group: "situation", type: "single", notSure: false,
+      text: "Who is this check for?",
+      options: [
+        { label: "The student (main applicant)", short: "Student", next: "p1" },
+        { label: "A family member of the student", detail: "A partner or child who wants to be included in the student's application", short: "Family member", next: "f1" }
+      ]
+    },
+
+    /* ---------- Stream: main applicant ---------- */
+    p1: {
+      stream: "student", group: "situation", type: "single",
+      text: "Are you in Australia right now?",
+      hint: "Your current location and visa decide where you need to lodge your application.",
+      options: [
+        { label: "Yes, I am in Australia", short: "In Australia", next: "p2" },
+        { label: "No, I am outside Australia", short: "Outside Australia", next: "off_out" }
+      ]
+    },
+    p2: {
+      stream: "student", group: "visa", type: "single",
+      text: "Which Australian visa do you hold now?",
+      hint: "Check your visa grant notice or VEVO. A substantive visa is any visa other than a bridging, criminal justice or enforcement visa.",
+      options: [
+        { label: "A Student visa (subclass 500) as the main applicant", detail: "You are the student", short: "500 as main applicant", next: "nfs_main" },
+        { label: "A Student visa (subclass 500) as a family member", detail: "You are the partner or child, and now want to apply as the main student", short: "500 as family member, switching to main", next: "off_sec" },
+        { label: "A visitor, work, working holiday, graduate or other listed visa", detail: "Check the list in Appendix A", short: "Possibly a blocked visa", next: "blk" },
+        { label: "Another substantive visa", detail: "For example a partner visa, a skilled pathway visa, or a family member of a subclass 995 holder", short: "Other substantive visa", next: "nfs_other" },
+        { label: "A bridging visa, or my visa has expired", detail: "No current substantive visa", short: "Bridging or expired visa", next: "p4" },
+        { label: "No Australian visa", detail: "You are in Australia without a current visa", short: "No Australian visa", next: "off_novisa" }
+      ]
+    },
+    blk: {
+      stream: "student", group: "visa", type: "single",
+      text: "Is your visa on the blocked list?",
+      hint: "Check the full list of blocked visas in Appendix A. A family member of a subclass 995 holder is not blocked.",
+      options: [
+        { label: "Yes, my visa is on the list", short: "On the list", next: "off_blk" },
+        { label: "No, it is not on the list", short: "Not on the list", next: "nfs_other" }
+      ]
+    },
+    nfs_main: {
+      stream: "student", group: "visa", type: "single", ifNotSure: "rev_nfs",
+      text: "Does your Student visa have a No Further Stay condition?",
+      hint: "Look for condition 8503, 8534 or 8535 on your grant notice or in VEVO.",
+      options: [
+        { label: "No", short: "No condition", next: "p3" },
+        { label: "Yes", detail: "Even if you have asked for, or received, a waiver", short: "Has the condition", next: "rev_nfs" }
+      ]
+    },
+    nfs_other: {
+      stream: "student", group: "visa", type: "single", ifNotSure: "rev_nfs",
+      text: "Does your current visa have a No Further Stay condition?",
+      hint: "Look for condition 8503, 8534 or 8535 on your grant notice or in VEVO.",
+      options: [
+        { label: "No", short: "No condition", next: "on_other" },
+        { label: "Yes", detail: "Even if you have asked for, or received, a waiver", short: "Has the condition", next: "rev_nfs" }
+      ]
+    },
+    p3: {
+      stream: "student", group: "eligibility", type: "single",
+      text: "Do any of these exemptions apply to you?",
+      hint: "Choose the one that fits you best. If more than one applies, choose any one of them. Changing course or provider on its own is not an exemption.",
+      options: [
+        { label: "I am a Defence student", short: "Defence student", next: "on_ex",
+          family: "Your partner and children can be included, as long as everyone applies in one combined application with you." },
+        { label: "I am sponsored by the Department of Foreign Affairs and Trade (Foreign Affairs student)", short: "Foreign Affairs student", next: "on_ex",
+          family: "Your partner and children can be included, as long as everyone applies in one combined application with you." },
+        { label: "I am enrolled in a doctoral degree (PhD) when I lodge", detail: "An offer or plan to start a doctorate is not enough.", short: "Doctoral (PhD)", next: "on_ex",
+          family: "Your partner and children can be included, as long as everyone applies in one combined application with you." },
+        {
+          label: "I am a primary or secondary school student", short: "School student",
+          sub: {
+            rule: "schoolPackage", pass: "on_ex", fail: "off_exfail", unsure: "rev_ex",
+            fields: [
+              { id: "packaged", label: "Is it a packaged course (more than one course)?", type: "select", hint: "For example, an English language course followed by a school course.", options: [["no", "No, only one course"], ["yes", "Yes, more than one course"], ["unsure", "Not sure"]] }
+            ]
+          }
+        },
+        {
+          label: "My education provider defaulted", detail: "I was enrolled when it defaulted and could not finish my course because of it.",
+          short: "Provider default",
+          family: "Only family members who already hold a Student visa as your family members can be included, in the same application as you. New family members cannot be added.",
+          sub: {
+            rule: "providerDefault", pass: "on_ex", fail: "off_exfail", unsure: "rev_ex",
+            fields: [
+              { id: "defaultDate", label: "Date the provider defaulted", type: "date" },
+              { id: "visaExpiry", label: "Your current visa expiry date", type: "date", hint: "Shown on your grant notice or in VEVO." }
+            ]
+          }
+        },
+        {
+          label: "I need more time to finish my main course", detail: "I started my main course and have not finished it yet. It must be finished with the same education provider.",
+          short: "Course completion",
+          family: "Only family members who already hold a Student visa as your family members can be included, in the same application as you. New family members cannot be added.",
+          sub: {
+            rule: "courseCompletion", pass: "on_ex", fail: "off_exfail", unsure: "rev_ex",
+            note: "This exemption only applies if you finish your course with the same education provider.",
+            fields: [
+              { id: "sameProvider", label: "Will you finish it with the same education provider?", type: "select", options: [["yes", "Yes, the same provider"], ["no", "No, a different provider"], ["unsure", "Not sure"]] },
+              { id: "initialEnd", label: "End date on your initial CoE", type: "date", hint: "The CoE your current Student visa was granted for.", showIf: { field: "sameProvider", equals: "yes" } },
+              { id: "currentEnd", label: "End date on your current CoE", type: "date", hint: "Your latest CoE, including any extension.", showIf: { field: "sameProvider", equals: "yes" } }
+            ]
+          }
+        },
+        {
+          label: "I finished my main course and am moving to one further course", detail: "Including moving on from school, or from a course with no AQF level. See Appendix B for AQF levels.",
+          short: "Course progression",
+          sub: {
+            rule: "courseProgression", pass: "on_ex", fail: "off_exfail", unsure: "rev_ex",
+            fields: [
+              { id: "completedLevel", label: "Level of the course you completed", type: "select", hint: "See Appendix B if you're not sure of the level.", options: [["school", "School course"], ["nonaqf", "Course with no AQF level"]].concat(AQF_LEVELS, [["unsure", "Not sure"]]) },
+              { id: "completedHE", label: "Was it a higher education course?", type: "select", options: [["yes", "Yes"], ["no", "No"], ["unsure", "Not sure"]] },
+              { id: "nextLevel", label: "Level of the next course", type: "select", options: [["nonaqf", "Course with no AQF level"]].concat(AQF_LEVELS, [["unsure", "Not sure"]]) },
+              { id: "nextHE", label: "Is the next course a higher education course at a higher education provider?", type: "select", options: [["yes", "Yes"], ["no", "No"], ["unsure", "Not sure"]] },
+              { id: "oneCourse", label: "Are you enrolled in no more than one further course?", type: "select", options: [["yes", "Yes, only one"], ["no", "No, more than one"], ["unsure", "Not sure"]] }
+            ]
+          }
+        },
+        { label: "None of these apply to me", detail: "You will need to apply from outside Australia.", short: "None apply", next: "off_noex", noPanel: true }
+      ]
+    },
+    p4: {
+      stream: "student", group: "eligibility", type: "single",
+      text: "Do either of these narrow cases apply?",
+      hint: "Both need an application within 28 days. This is not a general 28-day grace period.",
+      options: [
+        { label: "My last visa was a special purpose visa, or a diplomatic visa held as a family member, and it ended within the last 28 days", short: "Special purpose or diplomatic visa ended, 28 days", next: "on_28a" },
+        { label: "The Administrative Review Tribunal set aside the cancellation of my Student visa after it had already expired, and the decision was within the last 28 days", short: "Tribunal set aside cancellation, 28 days", next: "on_28b" },
+        { label: "Neither applies", detail: "This includes a Student visa that expired within the last 28 days", short: "Neither", next: "off_nosub" }
+      ]
+    },
+
+    /* ---------- Stream: family member ---------- */
+    f1: {
+      stream: "family", group: "eligibility", type: "single",
+      text: "Which of these applies to you or the student?",
+      hint: "Choose the one that fits best. A family member can only be included in a Student visa application in these cases.",
+      options: [
+        { label: "The student is a Defence student or a Foreign Affairs student", short: "Defence or Foreign Affairs student", next: "fnfs" },
+        { label: "The student holds a passport from a Pacific or ASEAN country", detail: "Brunei, Cambodia, Indonesia, Laos, Malaysia, Myanmar, Philippines, Singapore, Thailand, Vietnam, or a Pacific-regional country (including Timor-Leste). Use the passport actually held.", short: "Pacific or ASEAN passport", next: "fnfs" },
+        { label: "The student is enrolled in a doctoral degree (PhD)", short: "Student is doctoral (PhD)", next: "fnfs" },
+        { label: "The student's course, or every one of their courses, is fully funded by a foreign government", short: "Foreign government funded", next: "fnfs" },
+        { label: "I am in Australia and held a Student visa as this student's family member on 2 October 2026", detail: "Or I had applied for it before 2 October 2026 and it was granted later.", short: "Onshore family member on 2 Oct 2026", next: "fnfs" },
+        { label: "I am a child born in Australia on or after 2 October 2026", detail: "And my parent held, or had applied for, a Student visa as the main student on 2 October 2026.", short: "Child born in Australia after 2 Oct 2026", next: "fnfs" },
+        { label: "I already hold a Student visa as this student's family member, and the student is applying because of a provider default or to finish their current course", detail: "The student must meet that exemption too. New family members cannot be added this way.", short: "Existing family member, default or completion", next: "fnfs" },
+        { label: "None of these apply", detail: "A family member cannot be included in a new application.", short: "None apply", next: "noinc", noPanel: true }
+      ]
+    },
+    fnfs: {
+      stream: "family", group: "eligibility", type: "single", ifNotSure: "rev_fnfs",
+      text: "Does any family member's visa have a No Further Stay condition?",
+      hint: "Check every family member's visa, not only the student's. Look for condition 8503, 8534 or 8535.",
+      options: [
+        { label: "No", short: "No condition", next: "inc" },
+        { label: "No family member holds an Australian visa", short: "No Australian visas", next: "inc" },
+        { label: "Yes", detail: "At least one family member has the condition", short: "Has the condition", next: "rev_fnfs" }
+      ]
+    }
+  },
+
+  /* Per tone: badge, grant line, the call-to-action shown under the result,
+     and next steps. A next step can be plain text, or an object with
+     important:true (highlighted) and/or action:"consult" / "contact"
+     (adds a link to that page). */
+  toneDefaults: {
+    offshore: {
+      badge: "Apply from outside Australia",
+      grant: "You must be outside Australia when the visa is granted. You can come back between lodging and the decision only on another visa that is still in effect, and being in Australia at the decision can stop the grant.",
+      cta: {
+        title: "Lodging from outside Australia? Let us make sure nothing is missed",
+        text: "Talk to a PFEC migration agent about your lodgement, or use our lodgement service: our experienced agents prepare and check your application so it meets every requirement before it is lodged."
+      },
+      next: [
+        { text: "Book a free consultation to plan your offshore lodgement and check your documents.", action: "consult" },
+        { text: "Stay outside Australia until the decision, unless you return on another visa that is still in effect.", important: true },
+        { text: "An offshore application does not give you a bridging visa, so plan around your current visa's expiry.", important: true }
+      ]
+    },
+    onshore: {
+      badge: "Apply from inside Australia",
+      grant: "If you lodge in Australia, you can be in or outside Australia when the visa is granted, but not in immigration clearance.",
+      cta: {
+        title: "Verify this with a migration agent before you lodge",
+        text: "This result is based on your answers only. A PFEC migration agent can check your exemption evidence, CoE and visa conditions, so your onshore application is right the first time."
+      },
+      next: [
+        { text: "Verify your result and evidence with a PFEC migration agent before you lodge.", action: "consult" },
+        { text: "Check your visa conditions and expiry in VEVO.", important: true },
+        { text: "Keep evidence of your exemption, and have it reviewed before you lodge.", important: true }
+      ]
+    },
+    review: {
+      badge: "Needs advice",
+      grant: "Where you need to be at grant depends on where you lodge. Confirm it before you book travel.",
+      cta: {
+        title: "Book a consultation to clarify this",
+        text: "A PFEC migration agent can confirm your situation and tell you exactly where and how to lodge."
+      },
+      next: [
+        { text: "Book a free consultation with a PFEC migration agent before you lodge or travel.", action: "consult" },
+        { text: "Check your visa grant notice or VEVO for your visa subclass, conditions and expiry.", important: true }
+      ]
+    },
+    neutral: {
+      badge: "Outcome",
+      grant: "",
+      cta: {
+        title: "Explore other visa options for your family",
+        text: "A PFEC migration agent can look at the visas each family member could apply for instead."
+      },
+      next: [{ text: "Book a free consultation about separate visa options for each family member.", action: "consult" }]
+    }
+  },
+
+  results: {
+    /* ---------- Main applicant results ---------- */
+    off_out: {
+      stream: "student", tone: "offshore", short: "Offshore: outside Australia now",
+      title: "Apply from outside Australia",
+      summary: "You are outside Australia, so your application is lodged offshore.",
+      grant: "If you hold a Student visa now, or could not have applied in Australia, you must also be outside Australia when the visa is granted. Otherwise you can be in or outside Australia at grant, but not in immigration clearance.",
+      points: ["If you are planning to travel to Australia before you lodge, check where you can apply with a migration agent first."]
+    },
+    off_sec: {
+      stream: "student", tone: "offshore", short: "Offshore: family member switching to main",
+      title: "You must apply from outside Australia",
+      summary: "No exemption applies when a family member switches to become the main student.",
+      points: [
+        "You hold a Student visa as a family member and now want to apply as the main student.",
+        "Exemptions only cover people who hold their Student visa as the main applicant."
+      ]
+    },
+    off_blk: {
+      stream: "student", tone: "offshore", short: "Offshore: blocked visa",
+      title: "You must apply from outside Australia",
+      summary: "Holders of a blocked visa cannot apply for a Student visa in Australia, and no exemption removes this.",
+      points: [
+        "This applies whether you would be the main applicant or a family member.",
+        "Subclass 995 is blocked for the main holder only. See Appendix A for the full list."
+      ]
+    },
+    off_noex: {
+      stream: "student", tone: "offshore", short: "Offshore: no exemption",
+      title: "You must apply from outside Australia",
+      summary: "None of the onshore exemptions apply to you.",
+      points: [
+        "Current Student visa holders must apply offshore unless they fit an exempt class.",
+        "Moving to a course at the same or lower AQF level (see Appendix B), or enrolling in several further courses, does not qualify.",
+        "Leaving briefly to lodge and returning on a bridging visa does not work."
+      ]
+    },
+    off_exfail: {
+      stream: "student", tone: "offshore", short: "Offshore: exemption details not met", assessment: "p3",
+      title: "You must apply from outside Australia",
+      summary: "The exemption you chose does not apply, based on the details you gave.",
+      points: [
+        "The reason is shown in the exemption check below.",
+        "If a detail was entered wrongly, use Back to correct it."
+      ]
+    },
+    off_nosub: {
+      stream: "student", tone: "offshore", short: "Offshore: no substantive visa",
+      title: "You must apply from outside Australia",
+      summary: "Without a substantive visa you cannot lodge in Australia.",
+      points: ["The old 28-day window after a Student visa expires has been removed."]
+    },
+    off_novisa: {
+      stream: "student", tone: "offshore", short: "Offshore: no Australian visa",
+      title: "You must apply from outside Australia",
+      summary: "You do not hold an Australian visa, so a Student visa cannot be lodged in Australia.",
+      points: ["If you are in Australia without a visa, speak with a registered migration agent before you do anything else."]
+    },
+    on_ex: {
+      stream: "student", tone: "onshore", short: "Onshore: exemption applies", assessment: "p3",
+      title: "You can apply from inside Australia",
+      summary: "An onshore exemption applies to you, based on your answers.",
+      points: [
+        "You still need to meet every other Student visa requirement.",
+        "If anyone on the application holds a blocked visa or must apply offshore, the whole application must be lodged offshore."
+      ]
+    },
+    on_other: {
+      stream: "student", tone: "onshore", short: "Onshore: other substantive visa",
+      title: "You can apply from inside Australia",
+      summary: "You hold a substantive visa that is not blocked, is not a Student visa, and has no No Further Stay condition.",
+      points: [
+        "You still need to meet every other Student visa requirement.",
+        "If anyone on the application holds a blocked visa, the whole application must be lodged offshore."
+      ]
+    },
+    on_28a: {
+      stream: "student", tone: "onshore", badge: "May apply from inside Australia", short: "Onshore (maybe): 28-day visa case",
+      title: "You may be able to apply from inside Australia",
+      summary: "A narrow 28-day case may apply to you.",
+      points: [
+        "You must apply within 28 days of your last visa ending.",
+        "You must not have previously been granted a visa on an application made without a substantive visa.",
+        "Have the dates checked by a registered migration agent."
+      ]
+    },
+    on_28b: {
+      stream: "student", tone: "onshore", badge: "May apply from inside Australia", short: "Onshore (maybe): 28-day Tribunal case",
+      title: "You may be able to apply from inside Australia",
+      summary: "A narrow Tribunal case may apply to you.",
+      points: [
+        "You must apply within 28 days after you are taken to have been notified of the Tribunal decision.",
+        "You must not have previously been granted a visa on an application made without a substantive visa.",
+        "Have the decision and dates checked by a registered migration agent."
+      ]
+    },
+    review: {
+      tone: "review", short: "Needs advice: an answer was Not sure",
+      title: "Talk to a migration agent before you lodge",
+      summary: "You weren't sure about one of the answers, so we can't give a result yet.",
+      points: ["Your answers are listed with this result, so you can change the one you weren't sure about once you know."]
+    },
+    rev_nfs: {
+      stream: "student", tone: "review", short: "Needs advice: No Further Stay",
+      title: "Get advice before lodging in Australia",
+      summary: "A No Further Stay condition, or not knowing whether you have one, stops a straightforward onshore application.",
+      points: [
+        "Conditions 8503, 8534 and 8535 prevent most applications in Australia unless they are waived.",
+        "Whether a waiver applies, and its timing, needs individual assessment."
+      ]
+    },
+    rev_ex: {
+      stream: "student", tone: "review", short: "Needs advice: exemption to confirm", assessment: "p3",
+      title: "Your exemption needs confirming",
+      summary: "Some details of your exemption need a migration agent to confirm them before you lodge.",
+      points: [
+        "The reason is shown in the exemption check below.",
+        "If the exemption applies, you may be able to apply from inside Australia. If it does not, you must apply from outside Australia."
+      ]
+    },
+
+    /* ---------- Family member results ---------- */
+    inc: {
+      stream: "family", tone: "onshore", badge: "Family can be included", short: "Family member can be included", assessment: "f1",
+      title: "A family member can be included",
+      summary: "A category that allows family members on a Student visa application applies.",
+      grant: "Family members follow the student: everyone lodges together, in the same place, and follows the student's grant-location rule.",
+      points: [
+        "Family members must apply in one combined application with the student, at the same time and from the same place.",
+        "No one can be added to a Student visa after it is granted, so include everyone when the student lodges.",
+        "If the student must apply offshore, every family member must apply offshore too. Family already in Australia can stay together on an onshore application only where the student can also apply onshore.",
+        "If any applicant holds a blocked visa (see Appendix A), everyone applies offshore. A family member of a subclass 995 holder is not blocked."
+      ],
+      next: [
+        "Check where the student can lodge, using the button below.",
+        { text: "Book a free consultation to prepare one combined application for the student and every included family member.", action: "consult" },
+        { text: "Check each family member's visa, conditions and expiry in VEVO.", important: true }
+      ],
+      actions: [{ label: "Check the student's location", short: "Check student", goTo: "p1" }]
+    },
+    noinc: {
+      stream: "family", tone: "neutral", badge: "Family cannot be included", short: "Family member cannot be included",
+      title: "A family member cannot be included",
+      summary: "None of the family categories apply, so a family member cannot be included in a new Student visa application.",
+      points: [
+        "A partner or child cannot join later as a subsequent entrant: no one can be added to a Student visa after it is granted.",
+        "Family members can still look at separate visas that suit them, such as visitor visas, if eligible."
+      ],
+      actions: [{ label: "Check the student's location", short: "Check student", goTo: "p1" }]
+    },
+    rev_fnfs: {
+      stream: "family", tone: "review", short: "Needs advice: family No Further Stay",
+      title: "Get advice before including this family member",
+      summary: "A family member's No Further Stay condition, or not knowing about one, needs assessment first.",
+      points: ["A family category does not remove a restriction on an individual family member's own visa."],
+      actions: [{ label: "Check the student's location", short: "Check student", goTo: "p1" }]
+    }
+  },
+
+  /* Appendices shown under the checker. type "list" or "table".
+     Writing "Appendix A" (or B...) anywhere in the text links to it. */
+  reference: [
+    {
+      id: "A", title: "Blocked visas: cannot apply onshore, no exemptions",
+      type: "list", columns: 2,
+      items: ["400 Temporary Work (Short Stay Specialist)","403 Temporary Work (International Relations), Domestic Worker (Diplomatic or Consular) stream only","407 Training","408 Temporary Activity","417 Working Holiday","457 Temporary Work (Skilled)","462 Work and Holiday","482 Skills in Demand","482 Temporary Skill Shortage","485 Temporary Graduate","600 Visitor","601 Electronic Travel Authority","602 Medical Treatment","651 eVisitor","771 Transit","988 Maritime Crew","995 Diplomatic (Temporary), main holder only"],
+      note: "A family member of a subclass 995 holder is not blocked."
+    },
+    {
+      id: "B", title: "AQF levels (for course progression)",
+      type: "table",
+      rows: [["Level 1","Certificate I"],["Level 2","Certificate II"],["Level 3","Certificate III"],["Level 4","Certificate IV"],["Level 5","Diploma"],["Level 6","Advanced Diploma / Associate Degree"],["Level 7","Bachelor Degree"],["Level 8","Graduate Certificate / Graduate Diploma / Honours"],["Level 9","Master Degree"],["Level 10","Doctoral Degree"]],
+      note: "Progression must be to a higher AQF level. The same level is not enough. A higher education course must lead to another higher education course at a higher education provider."
+    }
+  ]
+};
+/* ======================= END OF CHECKER CONFIG ======================= */
+
+/* =====================================================================
+   RULES  —  checks used by sub-menus (an option's `sub.rule`).
+   Each rule gets the field values and returns:
+     { status: "pass" | "fail" | "unsure", reason, note }
+   or { error } to stop and ask the user to fix a field.
+   `today`, `addMonths(date, n)` and `fmt(date)` are passed in.
+   ===================================================================== */
+var CHECKER_RULES = {
+  /* School students: one course only. A packaged course needs a migration agent. */
+  schoolPackage: function (v) {
+    if (v.packaged === "no") return { status: "pass", note: "You are studying one school course." };
+    if (v.packaged === "yes") return { status: "unsure", reason: "Packaged courses (more than one course) need to be checked by a migration agent before you lodge." };
+    return { status: "unsure", reason: "You weren't sure whether your study is a packaged course." };
+  },
+
+  /* Lodge within 12 months after the default day, while the visa is still current. */
+  providerDefault: function (v, t) {
+    if (v.defaultDate > t.today) return { error: "The default date can't be in the future." };
+    if (v.visaExpiry < t.today) return { status: "fail", reason: "Your visa expired on " + t.fmt(v.visaExpiry) + ", so you cannot lodge in Australia." };
+    var deadline = t.addMonths(v.defaultDate, 12);
+    if (deadline < t.today) return { status: "fail", reason: "More than 12 months have passed since the provider defaulted (the window closed on " + t.fmt(deadline) + ")." };
+    var lodgeBy = v.visaExpiry < deadline ? v.visaExpiry : deadline;
+    return { status: "pass", note: "Lodge on or before " + t.fmt(lodgeBy) + ": the earlier of 12 months after the default day and your visa expiry. Only one application can be made for each default." };
+  },
+
+  /* Same provider, and current CoE ends within 12 months of the initial CoE end date. */
+  courseCompletion: function (v, t) {
+    if (v.sameProvider === "unsure") return { status: "unsure", reason: "You weren't sure whether you will finish with the same education provider." };
+    if (v.sameProvider === "no") return { status: "fail", reason: "This exemption only covers finishing your course with the same education provider. Changing provider means applying from outside Australia." };
+    if (v.currentEnd < v.initialEnd) return { error: "Your current CoE end date is earlier than your initial CoE end date. Please check both dates." };
+    var latest = t.addMonths(v.initialEnd, 12);
+    if (v.currentEnd > latest) return { status: "fail", reason: "Your current CoE ends on " + t.fmt(v.currentEnd) + ", more than 12 months after your initial CoE end date (the latest allowed is " + t.fmt(latest) + ")." };
+    return { status: "pass", note: "Your current CoE ends within 12 months of your initial CoE end date (latest allowed " + t.fmt(latest) + "). You must finish the course with the same education provider." };
+  },
+
+  /* One further course at a higher AQF level; higher education stays in higher education. */
+  courseProgression: function (v, t) {
+    if ([v.completedLevel, v.completedHE, v.nextLevel, v.nextHE, v.oneCourse].indexOf("unsure") > -1)
+      return { status: "unsure", reason: "Some course details were marked Not sure." };
+    var p = v.completedLevel, n = v.nextLevel;
+    var higher = p === "school" || (p === "nonaqf" && n !== "nonaqf") || (Number(p) > 0 && Number(n) > Number(p));
+    if (!higher) return { status: "fail", reason: "The next course must be at a higher AQF level than the course you completed (see Appendix B)." };
+    if (v.completedHE === "yes" && v.nextHE !== "yes") return { status: "fail", reason: "After a higher education course, the next course must also be higher education, at a higher education provider." };
+    if (v.oneCourse !== "yes") return { status: "fail", reason: "This exemption allows only one further course." };
+    return { status: "pass", note: "Your next course meets the progression rule, and you are enrolled in only one further course." };
+  }
+};
+CHECKER.rules = CHECKER_RULES;
+/* ======================= END OF RULES ======================= */
+
+</script>
+<script>
+/* Checker engine: routing, validation and decision-map generation.
+   No need to edit this when adding questions or results. */
+var CheckerEngine = (function () {
+  var TONES = { onshore: 1, offshore: 1, review: 1, neutral: 1 };
+  var has = function (o, k) { return Object.prototype.hasOwnProperty.call(o, k); };
+  function isQ(cfg, id) { return has(cfg.questions, id); }
+  function isR(cfg, id) { return has(cfg.results, id); }
+
+  /* Options of a single question, with the automatic "Not sure" answer added. */
+  function optionsOf(cfg, q) {
+    var opts = (q.options || []).slice();
+    if (q.type === "single" && q.notSure !== false && cfg.notSure) {
+      opts.push({ label: cfg.notSure.label, detail: cfg.notSure.detail, short: cfg.notSure.label, next: q.ifNotSure || cfg.notSure.goTo, auto: true });
+    }
+    return opts;
+  }
+
+  /* Every outgoing link from a question, with its map label. */
+  function links(cfg, q) {
+    if (q.type === "checklist") {
+      return [
+        { to: q.ifAnyYes, label: "Any Yes" },
+        { to: q.ifUnsure, label: "No Yes, some Not sure" },
+        { to: q.ifAllNo, label: "All No" }
+      ];
+    }
+    var out = [];
+    optionsOf(cfg, q).forEach(function (o) {
+      var name = o.short || o.label;
+      if (o.sub) {
+        out.push({ to: o.sub.pass, label: name + ": details meet the rule" });
+        out.push({ to: o.sub.fail, label: name + ": details don't" });
+        out.push({ to: o.sub.unsure, label: name + ": a detail is Not sure" });
+      } else out.push({ to: o.next, label: name, auto: o.auto });
+    });
+    return out;
+  }
+
+  /* Date helpers passed to sub-menu rules. Dates are "YYYY-MM-DD" strings. */
+  function addMonths(s, n) {
+    var p = s.split("-").map(Number), y = p[0], m = p[1] - 1 + n, d = p[2];
+    y += Math.floor(m / 12); m = ((m % 12) + 12) % 12;
+    var last = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    var pad = function (x) { return (x < 10 ? "0" : "") + x; };
+    return y + "-" + pad(m + 1) + "-" + pad(Math.min(d, last));
+  }
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function fmt(s) { var p = s.split("-").map(Number); return p[2] + " " + MONTHS[p[1] - 1] + " " + p[0]; }
+  function todayISO() { var d = new Date(), pad = function (x) { return (x < 10 ? "0" : "") + x; }; return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+
+  /* Fields of a sub-menu that are showing, given the current values. */
+  function visibleFields(sub, values) {
+    return sub.fields.filter(function (f) { return !f.showIf || values[f.showIf.field] === f.showIf.equals; });
+  }
+
+  /* Run a sub-menu rule. Returns { status, reason, note } or { error }. */
+  function checkSub(cfg, sub, values, today) {
+    var rule = cfg.rules && cfg.rules[sub.rule];
+    if (!rule) return { error: 'Rule "' + sub.rule + '" is missing.' };
+    return rule(values, { today: today || todayISO(), addMonths: addMonths, fmt: fmt }) || { error: "The rule returned nothing." };
+  }
+
+  function route(cfg, q, answer) {
+    if (q.type === "checklist") {
+      if (answer.indexOf("yes") > -1) return q.ifAnyYes;
+      if (answer.indexOf("unsure") > -1) return q.ifUnsure;
+      return q.ifAllNo;
+    }
+    if (typeof answer === "object") { var o = optionsOf(cfg, q)[answer.i]; return o.sub ? o.sub[answer.outcome.status] : o.next; }
+    return optionsOf(cfg, q)[answer].next;
+  }
+
+  function validate(cfg) {
+    var issues = [], add = function (m) { issues.push(m); };
+    var streams = cfg.streams || {}, groups = {};
+    (cfg.groups || []).forEach(function (g) { groups[g.id] = 1; });
+    var exists = function (to) { return isQ(cfg, to) || isR(cfg, to); };
+    Object.keys(cfg.questions).forEach(function (id) { if (isR(cfg, id)) add('"' + id + '" is used as both a question id and a result id.'); });
+    if (!isQ(cfg, cfg.startAt)) add('startAt "' + cfg.startAt + '" is not a question.');
+    if (cfg.notSure && !exists(cfg.notSure.goTo)) add('notSure.goTo "' + cfg.notSure.goTo + '" does not exist.');
+
+    Object.keys(cfg.questions).forEach(function (id) {
+      var q = cfg.questions[id];
+      if (q.stream && !streams[q.stream]) add('Question "' + id + '" uses stream "' + q.stream + '", which is not in streams.');
+      if (q.group && !groups[q.group]) add('Question "' + id + '" uses group "' + q.group + '", which is not in groups.');
+      if (q.type === "single") {
+        if (!q.options || !q.options.length) add('Question "' + id + '" has no options.');
+        (q.options || []).forEach(function (o, i) {
+          if (o.sub) {
+            if (!cfg.rules || !cfg.rules[o.sub.rule]) add('Question "' + id + '", option ' + (i + 1) + ' uses rule "' + o.sub.rule + '", which is not in RULES.');
+            ["pass", "fail", "unsure"].forEach(function (k) { if (!o.sub[k]) add('Question "' + id + '", option ' + (i + 1) + ' sub-menu is missing ' + k + '.'); });
+            var ids = {}; (o.sub.fields || []).forEach(function (f) { ids[f.id] = 1; });
+            (o.sub.fields || []).forEach(function (f) { if (f.showIf && !ids[f.showIf.field]) add('Question "' + id + '", field "' + f.id + '" shows after "' + f.showIf.field + '", which is not a field.'); });
+          } else if (!o.next) add('Question "' + id + '", option ' + (i + 1) + ' has no next.');
+        });
+      } else if (q.type === "checklist") {
+        if (!q.items || !q.items.length) add('Checklist "' + id + '" has no items.');
+        ["ifAnyYes", "ifUnsure", "ifAllNo"].forEach(function (k) { if (!q[k]) add('Checklist "' + id + '" is missing ' + k + '.'); });
+      } else add('Question "' + id + '" has type "' + q.type + '". Use "single" or "checklist".');
+      links(cfg, q).forEach(function (l) { if (l.to && !exists(l.to)) add('Question "' + id + '" points to "' + l.to + '", which does not exist.'); });
+    });
+
+    Object.keys(cfg.results).forEach(function (id) {
+      var r = cfg.results[id];
+      if (r.stream && !streams[r.stream]) add('Result "' + id + '" uses stream "' + r.stream + '", which is not in streams.');
+      if (!TONES[r.tone]) add('Result "' + id + '" has tone "' + r.tone + '". Use onshore, offshore, review or neutral.');
+      if (r.assessment && !isQ(cfg, r.assessment)) add('Result "' + id + '" shows assessment "' + r.assessment + '", which is not a question.');
+      (r.actions || []).forEach(function (a) { if (!isQ(cfg, a.goTo)) add('Result "' + id + '" has an action to "' + a.goTo + '", which is not a question.'); });
+    });
+
+    if (cfg.familyNote && cfg.familyNote.action && !isQ(cfg, cfg.familyNote.action.goTo)) add('familyNote.action goes to "' + cfg.familyNote.action.goTo + '", which is not a question.');
+    var seen = {}, stack = [cfg.startAt];
+    while (stack.length) {
+      var id = stack.pop();
+      if (seen[id] || !exists(id)) continue;
+      seen[id] = 1;
+      if (isQ(cfg, id)) links(cfg, cfg.questions[id]).forEach(function (l) { stack.push(l.to); });
+      else (cfg.results[id].actions || []).forEach(function (a) { stack.push(a.goTo); });
+    }
+    Object.keys(cfg.questions).concat(Object.keys(cfg.results)).forEach(function (id) { if (!seen[id]) add('"' + id + '" cannot be reached from the start question.'); });
+    return issues;
+  }
+
+  /* Result fields with tone defaults filled in. */
+  function resultView(cfg, id) {
+    var r = cfg.results[id], d = (cfg.toneDefaults || {})[r.tone] || {}, out = {};
+    Object.keys(r).forEach(function (k) { out[k] = r[k]; });
+    if (out.badge == null) out.badge = d.badge || "";
+    if (out.grant == null) out.grant = d.grant || "";
+    if (out.next == null) out.next = d.next || [];
+    if (out.cta == null) out.cta = d.cta || null;
+    return out;
+  }
+
+  function mmText(s) { return String(s).replace(/"/g, "#quot;").replace(/</g, "#lt;").replace(/>/g, "#gt;"); }
+
+  function toMermaid(cfg) {
+    var L = [], n = function (id) { return "n_" + id; };
+    L.push('%%{init: {"theme":"base","themeVariables":{"fontFamily":"Montserrat, Segoe UI, sans-serif","fontSize":"14px","primaryColor":"#FFFFFF","primaryBorderColor":"#1D297C","primaryTextColor":"#1E293B","lineColor":"#64748B","clusterBkg":"#F5F7FB","clusterBorder":"#CBD5E1","edgeLabelBackground":"#FFFFFF"},"flowchart":{"curve":"basis","nodeSpacing":36,"rankSpacing":52}}}%%');
+    L.push("flowchart TD");
+    var qLabel = function (id) {
+      var q = cfg.questions[id], t = mmText(q.text);
+      if (q.type === "single") (q.options || []).forEach(function (o) {
+        if (o.sub) t += "<br/><i>" + mmText(o.short || o.label) + " asks: " + mmText(o.sub.fields.map(function (f) { return f.label; }).join("; ")) + "</i>";
+      });
+      if (q.type === "checklist") {
+        t += "<br/><i>Yes / No / Not sure for each</i>";
+        q.items.forEach(function (o) { t += "<br/>• " + mmText(o.short || o.label); });
+      }
+      return t;
+    };
+    var node = function (id) {
+      if (isQ(cfg, id)) return n(id) + '["' + qLabel(id) + '"]';
+      var r = cfg.results[id];
+      return n(id) + '(["' + mmText(r.short || r.title) + '"])';
+    };
+    var placed = {}, all = Object.keys(cfg.questions).concat(Object.keys(cfg.results));
+    all.filter(function (id) { var x = cfg.questions[id] || cfg.results[id]; return !x.stream || !cfg.streams[x.stream]; })
+      .forEach(function (id) { L.push("  " + node(id)); placed[id] = 1; });
+    Object.keys(cfg.streams).forEach(function (s) {
+      var members = all.filter(function (id) { return !placed[id] && (cfg.questions[id] || cfg.results[id]).stream === s; });
+      if (!members.length) return;
+      L.push("  subgraph st_" + s + '["' + mmText(cfg.streams[s].label) + '"]');
+      L.push("    direction TB");
+      members.forEach(function (id) { L.push("    " + node(id)); placed[id] = 1; });
+      L.push("  end");
+    });
+    var defaultNotSure = cfg.notSure && cfg.notSure.goTo;
+    Object.keys(cfg.questions).forEach(function (id) {
+      links(cfg, cfg.questions[id]).forEach(function (l) {
+        if (!l.to) return;
+        if (l.auto && l.to === defaultNotSure) return; /* shown once in the note instead */
+        L.push("  " + n(id) + (l.auto ? " -.->" : " -->") + '|"' + mmText(l.label) + '"| ' + n(l.to));
+      });
+    });
+    if (defaultNotSure) {
+      L.push('  note_ns>"Every question without its own Not sure route sends Not sure here"]');
+      L.push("  note_ns -.-> " + n(defaultNotSure));
+    }
+    var jumps = [];
+    Object.keys(cfg.results).forEach(function (id) {
+      (cfg.results[id].actions || []).forEach(function (a, i) {
+        var j = "j_" + id + "_" + i, target = cfg.questions[a.goTo];
+        L.push("  " + j + '>"' + mmText(a.short || a.label) + ": go to " + mmText(target ? target.text : a.goTo) + '"]');
+        L.push("  " + n(id) + " -.-> " + j);
+        jumps.push(j);
+      });
+    });
+    L.push("  classDef question fill:#FFFFFF,stroke:#1D297C,stroke-width:1.5px,color:#1E293B");
+    L.push("  classDef start fill:#1D297C,stroke:#1D297C,color:#FFFFFF");
+    L.push("  classDef onshore fill:#E7F5EE,stroke:#16794C,stroke-width:1.5px,color:#0E5234");
+    L.push("  classDef offshore fill:#FEF1F0,stroke:#B42318,stroke-width:1.5px,color:#912018");
+    L.push("  classDef review fill:#FDF7E4,stroke:#B7791F,stroke-width:1.5px,color:#7A4D0B");
+    L.push("  classDef neutral fill:#F1F5F9,stroke:#64748B,stroke-width:1.5px,color:#334155");
+    L.push("  classDef jump fill:#FFFFFF,stroke:#94A3B8,stroke-dasharray:4 3,color:#475569");
+    var qs = Object.keys(cfg.questions).filter(function (id) { return id !== cfg.startAt; });
+    if (qs.length) L.push("  class " + qs.map(n).join(",") + " question");
+    if (isQ(cfg, cfg.startAt)) L.push("  class " + n(cfg.startAt) + " start");
+    Object.keys(TONES).forEach(function (tone) {
+      var ids = Object.keys(cfg.results).filter(function (id) { return cfg.results[id].tone === tone; });
+      if (ids.length) L.push("  class " + ids.map(n).join(",") + " " + tone);
+    });
+    var jj = jumps.concat(defaultNotSure ? ["note_ns"] : []);
+    if (jj.length) L.push("  class " + jj.join(",") + " jump");
+    return L.join("\n");
+  }
+
+  /* Longest number of questions still ahead (used to size progress). */
+  function remaining(cfg, id, memo, visiting) {
+    memo = memo || {}; visiting = visiting || {};
+    if (!isQ(cfg, id)) return 0;
+    if (memo[id] != null) return memo[id];
+    if (visiting[id]) return 0;
+    visiting[id] = 1;
+    var best = 0;
+    links(cfg, cfg.questions[id]).forEach(function (l) { best = Math.max(best, remaining(cfg, l.to, memo, visiting)); });
+    visiting[id] = 0;
+    return (memo[id] = 1 + best);
+  }
+
+  return { visibleFields: visibleFields, checkSub: checkSub, addMonths: addMonths, fmt: fmt, todayISO: todayISO, optionsOf: optionsOf, links: links, route: route, validate: validate, resultView: resultView, toMermaid: toMermaid, remaining: remaining, isQuestion: isQ, isResult: isR };
+})();
+
+</script>
+<script>
+(function () {
+  var cfg = CHECKER, E = CheckerEngine;
+  var issues = E.validate(cfg);
+  if (issues.length && window.console) console.warn("Checker config issues:\n- " + issues.join("\n- "));
+  var $ = function (id) { return document.getElementById(id); };
+  /* Escape text and turn "Appendix A" etc. into links to the appendices. */
+  function rich(s) { return esc(s).replace(/Appendix ([A-Z])\b/g, '<a href="#appendix-$1" class="applink" data-app="$1">Appendix $1</a>'); }
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  var app = $("app"), trail = $("trail"), steps = $("steps");
+  var site = cfg.site || {};
+
+  /* ---------- branding from config ---------- */
+  if (site.homeUrl) $("logo-link").href = site.homeUrl;
+  if (site.consultUrl) $("head-cta").href = site.consultUrl;
+  if (site.consultLabel) {
+    var short = site.consultLabel.replace(/^Book an? /, "");
+    short = short.charAt(0).toUpperCase() + short.slice(1);
+    $("head-cta").innerHTML = '<span class="hide-sm">' + esc(site.consultLabel) + '</span><span class="show-sm">' + esc(short) + "</span>";
+  }
+  var logo = $("logo-img");
+  logo.onerror = function () { logo.hidden = true; $("logo-text").hidden = false; };
+  if (site.logo) logo.src = site.logo; else logo.onerror();
+  if (site.name) { logo.alt = site.name; $("logo-text").textContent = site.name; }
+
+  /* ---------- reference panels ---------- */
+  $("refs").innerHTML = (cfg.reference || []).map(function (r) {
+    var body = r.type === "table"
+      ? "<table>" + r.rows.map(function (row) { return "<tr>" + row.map(function (c) { return "<td>" + esc(c) + "</td>"; }).join("") + "</tr>"; }).join("") + "</table>"
+      : '<ul class="cols' + (r.columns === 2 ? " c2" : "") + '">' + r.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>";
+    if (r.note) body += '<p class="note">' + rich(r.note) + "</p>";
+    var label = r.id ? "Appendix " + r.id + ": " : "";
+    return '<details' + (r.id ? ' id="appendix-' + esc(r.id) + '"' : "") + "><summary>" + esc(label + r.title) + '</summary><div class="body">' + body + "</div></details>";
+  }).join("");
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a.applink");
+    if (!a) return;
+    var d = $("appendix-" + a.getAttribute("data-app"));
+    if (!d) return;
+    e.preventDefault(); e.stopPropagation();
+    d.open = true; d.scrollIntoView({ behavior: "smooth", block: "start" });
+    var s = d.querySelector("summary"); if (s) s.focus({ preventScroll: true });
+  }, true);
+
+  /* ---------- icons ---------- */
+  var I = {
+    onshore: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    offshore: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14.5l7-2.5V5.5a1.5 1.5 0 0 1 3 0V12l7 2.5V17l-7-2v3.5l2 1.5v1.5l-3.5-1-3.5 1V19l2-1.5V15l-7 2z"/></svg>',
+    review: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>',
+    neutral: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
+    back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',
+    print: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><path d="M7 14h10v7H7z"/></svg>'
+  };
+  var ANSWER = { yes: "Yes", no: "No", unsure: "Not sure" };
+  var STATUS = { yes: "Applies", no: "Doesn't apply", unsure: "To confirm" };
+
+  $("trail-restart").onclick = function () { restart(); };
+
+  /* ---------- state ---------- */
+  var hist = [], memo = {}, cur = cfg.startAt;
+  function go(next, text, raw) { hist.push({ id: cur, answer: text, raw: raw }); memo[cur] = raw; cur = next; render(); }
+  function back() { if (hist.length) { cur = hist.pop().id; render(); } }
+  function jump(i) { cur = hist[i].id; hist = hist.slice(0, i); render(); }
+  function restart(target) {
+    hist = []; memo = {}; cur = cfg.startAt;
+    if (target && target !== cfg.startAt) {
+      var s = cfg.questions[cfg.startAt], idx = -1;
+      E.optionsOf(cfg, s).forEach(function (o, i) { if (o.next === target) idx = i; });
+      hist.push({ id: cfg.startAt, answer: idx > -1 ? (s.options[idx].short || s.options[idx].label) : "Restarted", raw: idx });
+      memo[cfg.startAt] = idx; cur = target;
+    }
+    render();
+  }
+
+  /* ---------- progress steps ---------- */
+  function renderSteps() {
+    var groups = (cfg.groups || []).concat([{ id: "__result", label: "Your result" }]);
+    var curGroup = E.isResult(cfg, cur) ? "__result" : (cfg.questions[cur] || {}).group;
+    var ci = -1; groups.forEach(function (g, i) { if (g.id === curGroup) ci = i; });
+    steps.innerHTML = groups.map(function (g, i) {
+      var st = i < ci ? "done" : i === ci ? "current" : "";
+      return '<li class="' + st + '"' + (st === "current" ? ' aria-current="step"' : "") + '><span class="n">' + (st === "done" ? "✓" : i + 1) + '</span><span class="t">' + esc(g.label) + "</span></li>";
+    }).join("");
+  }
+
+  function renderTrail() {
+    $("trail-restart").hidden = true;
+    if (!hist.length) { trail.innerHTML = '<p class="empty">Your answers will appear here as you go. You can change any of them.</p>'; return; }
+    trail.innerHTML = "<ol>" + hist.map(function (h, i) {
+      var q = cfg.questions[h.id];
+      return '<li><div class="q">' + esc(q ? q.text : h.id) + '</div><div class="a">' + esc(h.answer) + '</div><button type="button" data-jump="' + i + '">Change<span class="sr"> this answer</span></button></li>';
+    }).join("") + "</ol>";
+    trail.querySelectorAll("[data-jump]").forEach(function (b) { b.onclick = function () { jump(+b.getAttribute("data-jump")); }; });
+    $("trail-restart").hidden = false;
+  }
+
+  function head(q) {
+    var s = q.stream && cfg.streams[q.stream];
+    return (s ? '<span class="tag">' + esc(s.label) + "</span>" : "") + '<h2 class="q-title" id="qh" tabindex="-1">' + esc(q.text) + "</h2>" + (q.hint ? '<p class="q-hint">' + rich(q.hint) + "</p>" : '<p class="q-hint"></p>');
+  }
+  function actionsRow(primaryLabel) {
+    return '<p class="err" id="err" role="alert" hidden></p><div class="actions">' +
+      (hist.length ? '<button type="button" class="btn ghost" id="back">' + I.back + "Back</button>" : "") +
+      '<button type="button" class="btn primary" id="go">' + esc(primaryLabel) + "</button>" +
+      (hist.length ? '<span class="spacer"></span><button type="button" class="btn ghost" id="restart">Start again</button>' : "") + "</div>";
+  }
+  function showErr(msg) { var e = $("err"); e.textContent = msg; e.hidden = false; }
+
+  function toPanel(force) {
+    if (window.parent !== window && document.documentElement.classList.contains("embed")) { window.parent.postMessage({ type: "pfec-checker-scroll" }, "*"); return; }
+    var p = document.querySelector(".panel"), top = p.getBoundingClientRect().top;
+    if (top < 0 || (!force && top > window.innerHeight)) p.scrollIntoView({ block: "start" });
+  }
+
+  function render() {
+    document.body.classList.remove("has-bar");
+    renderSteps(); renderTrail();
+    if (E.isResult(cfg, cur)) return result();
+    var q = cfg.questions[cur];
+    if (!q) { app.innerHTML = '<h2 class="q-title">This step is missing</h2><p class="q-hint">The checker points to "' + esc(cur) + '", which is not in the config.</p><div class="actions"><button class="btn primary" id="again" type="button">Start again</button></div>'; $("again").onclick = function () { restart(); }; return; }
+    if (q.type === "checklist") renderChecklist(q); else renderSingle(q);
+    var b = $("back"); if (b) b.onclick = back;
+    var rs = $("restart"); if (rs) rs.onclick = function () { restart(); };
+    if (hist.length) { $("qh").focus({ preventScroll: true }); }
+    if (hist.length) toPanel(false);
+  }
+
+  function fieldHtml(f, n, val) {
+    var id = "f" + n + "_" + f.id, control;
+    if (f.type === "date") control = '<input type="date" id="' + id + '" data-field="' + esc(f.id) + '" value="' + esc(val || "") + '">';
+    else control = '<select id="' + id + '" data-field="' + esc(f.id) + '"><option value="">Select\u2026</option>' + f.options.map(function (o) {
+      return '<option value="' + esc(o[0]) + '"' + (val === o[0] ? " selected" : "") + ">" + esc(o[1]) + "</option>";
+    }).join("") + "</select>";
+    return '<div class="field" data-fid="' + esc(f.id) + '"><label for="' + id + '">' + esc(f.label) + "</label>" + (f.hint ? '<small id="' + id + '_h">' + rich(f.hint) + "</small>" : "") + control + "</div>";
+  }
+
+  function renderSingle(q) {
+    var opts = E.optionsOf(cfg, q), prev = memo[cur];
+    var prevI = prev && typeof prev === "object" ? prev.i : prev, prevV = prev && typeof prev === "object" ? prev.values || {} : {};
+    app.innerHTML = head(q) + '<fieldset class="choices"><legend class="sr">' + esc(q.text) + "</legend>" + opts.map(function (o, i) {
+      var sub = o.sub ? '<div class="sub" id="sub' + i + '" hidden><p class="sub-title">A few details to check this exemption</p>' + (o.sub.note ? '<p class="sub-note">' + rich(o.sub.note) + "</p>" : "") + o.sub.fields.map(function (f) { return fieldHtml(f, i, prevI === i ? prevV[f.id] : ""); }).join("") + "</div>" : "";
+      return '<div class="choice-wrap"><label class="choice' + (o.auto ? " quiet" : "") + (o.sub ? " has-sub" : "") + '"><input type="radio" name="opt" value="' + i + '"' + (prevI === i ? " checked" : "") + (o.sub ? ' aria-controls="sub' + i + '"' : "") + '><span class="dot" aria-hidden="true"></span><span><b>' + esc(o.label) + "</b>" + (o.detail ? "<small>" + rich(o.detail) + "</small>" : "") + "</span></label>" + sub + "</div>";
+    }).join("") + "</fieldset>" + actionsRow("Continue");
+
+    var readSub = function (i) {
+      var values = {}; $("sub" + i).querySelectorAll("[data-field]").forEach(function (el) { values[el.getAttribute("data-field")] = el.value; });
+      return values;
+    };
+    var syncSub = function (i) {
+      var o = opts[i]; if (!o || !o.sub) return;
+      var values = readSub(i), vis = {};
+      E.visibleFields(o.sub, values).forEach(function (f) { vis[f.id] = 1; });
+      $("sub" + i).querySelectorAll(".field").forEach(function (el) { el.hidden = !vis[el.getAttribute("data-fid")]; });
+    };
+    var syncAll = function () {
+      var c = app.querySelector('input[name="opt"]:checked'), sel = c ? +c.value : -1;
+      opts.forEach(function (o, i) { if (o.sub) { $("sub" + i).hidden = i !== sel; syncSub(i); } });
+    };
+    var submit = function () {
+      var c = app.querySelector('input[name="opt"]:checked');
+      if (!c) return showErr("Choose an answer to continue.");
+      var i = +c.value, o = opts[i];
+      if (!o.sub) return go(E.route(cfg, q, i), o.short || o.label, i);
+      var values = readSub(i), shown = E.visibleFields(o.sub, values), missing = shown.filter(function (f) { return !values[f.id]; });
+      app.querySelectorAll(".field").forEach(function (el) { el.classList.remove("missing"); });
+      if (missing.length) {
+        missing.forEach(function (f) { app.querySelector('#sub' + i + ' [data-fid="' + f.id + '"]').classList.add("missing"); });
+        showErr("Complete every detail for this exemption to continue.");
+        $("f" + i + "_" + missing[0].id).focus(); return;
+      }
+      var kept = {}; shown.forEach(function (f) { kept[f.id] = values[f.id]; });
+      var outcome = E.checkSub(cfg, o.sub, kept);
+      if (outcome.error) return showErr(outcome.error);
+      var word = { pass: "applies", fail: "doesn't apply", unsure: "details not sure" }[outcome.status];
+      go(E.route(cfg, q, { i: i, outcome: outcome }), (o.short || o.label) + ": " + word, { i: i, values: kept, outcome: outcome });
+    };
+    $("go").onclick = submit;
+    app.querySelectorAll('input[name="opt"]').forEach(function (r) {
+      r.onchange = function () { $("err").hidden = true; syncAll(); };
+      r.onkeydown = function (e) { if (e.key === "Enter") { e.preventDefault(); submit(); } };
+    });
+    app.querySelectorAll(".sub [data-field]").forEach(function (el) {
+      el.onchange = function () { el.closest(".field").classList.remove("missing"); $("err").hidden = true; syncAll(); };
+    });
+    syncAll();
+  }
+
+  function renderChecklist(q) {
+    var prev = Array.isArray(memo[cur]) ? memo[cur] : [];
+    app.innerHTML = head(q) + '<div class="list-tools"><button type="button" class="linkish" id="rest-no">Answer No to the rest</button></div><div class="checklist">' + q.items.map(function (it, i) {
+      var name = "r" + i;
+      return '<div class="crow" id="row' + i + '" role="radiogroup" aria-labelledby="lbl' + i + '"><div id="lbl' + i + '"><b>' + esc(it.label) + "</b>" + (it.detail ? "<small>" + esc(it.detail) + "</small>" : "") + '</div><div class="seg">' +
+        ["yes", "no", "unsure"].map(function (v) { return '<label><input type="radio" name="' + name + '" value="' + v + '"' + (prev[i] === v ? " checked" : "") + "><span>" + ANSWER[v] + "</span></label>"; }).join("") + "</div></div>";
+    }).join("") + "</div>" + actionsRow("See my result");
+    var read = function () { return q.items.map(function (_, i) { var c = app.querySelector('input[name="r' + i + '"]:checked'); return c ? c.value : null; }); };
+    app.querySelectorAll(".seg input").forEach(function (r) { r.onchange = function () { r.closest(".crow").classList.remove("missing"); $("err").hidden = true; }; });
+    $("rest-no").onclick = function () {
+      q.items.forEach(function (_, i) { if (!app.querySelector('input[name="r' + i + '"]:checked')) { app.querySelector('input[name="r' + i + '"][value="no"]').checked = true; $("row" + i).classList.remove("missing"); } });
+      $("err").hidden = true;
+    };
+    $("go").onclick = function () {
+      var a = read(), missing = [];
+      a.forEach(function (v, i) { $("row" + i).classList.toggle("missing", !v); if (!v) missing.push(i); });
+      if (missing.length) { showErr("Answer every item (" + missing.length + " left), or use \u201cAnswer No to the rest\u201d."); $("row" + missing[0]).querySelector("input").focus(); return; }
+      var yes = [], uns = [];
+      a.forEach(function (v, i) { var s = q.items[i].short || q.items[i].label; if (v === "yes") yes.push(s); if (v === "unsure") uns.push(s); });
+      var text = yes.length || uns.length ? [yes.length ? "Yes: " + yes.join(", ") : "", uns.length ? "Not sure: " + uns.join(", ") : ""].filter(Boolean).join(". ") : "No to all";
+      go(E.route(cfg, q, a), text, a);
+    };
+  }
+
+  function assessment(r) {
+    var qid = r.assessment, q = cfg.questions[qid], h = null;
+    hist.forEach(function (x) { if (x.id === qid) h = x; });
+    if (!q || !h) return "";
+    if (q.type === "single") return chosenExemption(q, h);
+    if (!Array.isArray(h.raw)) return "";
+    var anyCite = q.items.some(function (it) { return it.cite; });
+    return '<section class="rsec"><h3>' + (q.stream === "family" ? "Family categories" : "Exemption check") + '</h3><div class="tablewrap"><table class="assess"><thead><tr><th scope="col">' + (q.stream === "family" ? "Category" : "Exemption") + '</th><th scope="col">Your answer</th>' + (anyCite ? '<th scope="col">Reference</th>' : "") + "</tr></thead><tbody>" +
+      q.items.map(function (it, i) { var v = h.raw[i]; return "<tr><td>" + esc(it.short || it.label) + '</td><td><span class="st ' + v + '">' + STATUS[v] + "</span></td>" + (anyCite ? '<td class="ref">' + esc(it.cite || "") + "</td>" : "") + "</tr>"; }).join("") +
+      '</tbody></table></div><p class="fine">Based on your answers only. Evidence for each exemption is checked when the application is assessed.</p></section>';
+  }
+
+  function chosenExemption(q, h) {
+    var raw = h.raw, i = raw && typeof raw === "object" ? raw.i : raw, o = E.optionsOf(cfg, q)[i];
+    if (!o || o.auto || o.noPanel) return "";
+    var oc = raw && typeof raw === "object" ? raw.outcome : { status: "pass" };
+    var st = { pass: ["yes", "Applies"], fail: ["fail", "Doesn't apply"], unsure: ["unsure", "To confirm"] }[oc.status];
+    var rows = "";
+    if (o.sub && raw.values) rows = E.visibleFields(o.sub, raw.values).map(function (f) {
+      var v = raw.values[f.id], shown = v;
+      if (f.type === "date") shown = E.fmt(v);
+      else (f.options || []).forEach(function (op) { if (op[0] === v) shown = op[1]; });
+      return "<tr><td>" + esc(f.label) + "</td><td>" + esc(shown) + "</td></tr>";
+    }).join("");
+    var why = oc.reason || oc.note;
+    var fam = q.stream === "family";
+    return '<section class="rsec"><h3>' + (fam ? "Family category" : "Exemption check") + '</h3><div class="exbox"><div class="exhead"><div><b>' + esc(o.label) + '</b></div><span class="st ' + st[0] + '">' + st[1] + "</span></div>" +
+      (rows ? '<table class="exdetails"><tbody>' + rows + "</tbody></table>" : "") +
+      (why ? '<p class="exwhy' + (oc.status === "fail" ? " bad" : "") + '"><b>' + (oc.reason ? "Why: " : "Note: ") + "</b>" + rich(why) + "</p>" : "") + '</div><p class="fine">Based on your answers only. Evidence is checked when the application is assessed.</p></section>';
+  }
+
+  function familySection(r) {
+    var fn = cfg.familyNote;
+    if (!fn || r.stream !== "student" || (r.tone !== "onshore" && r.tone !== "offshore")) return "";
+    var text = r.family || fn.text;
+    if (r.assessment) hist.forEach(function (x) {
+      if (x.id !== r.assessment || !cfg.questions[x.id]) return;
+      var raw = x.raw, i = raw && typeof raw === "object" ? raw.i : raw, o = E.optionsOf(cfg, cfg.questions[x.id])[i];
+      var passed = !(raw && typeof raw === "object") || raw.outcome.status === "pass";
+      if (o && o.family && passed && r.tone === "onshore") text = o.family;
+    });
+    return '<section class="rsec fam"><h3>' + esc(fn.title || "Family members") + "</h3><p>" + rich(text) + "</p>" + (fn.always ? '<p class="fam-always">' + rich(fn.always) + "</p>" : "") +
+      (fn.action ? '<button type="button" class="btn ghost small" id="fam-check">' + esc(fn.action.label) + "</button>" : "") + "</section>";
+  }
+
+  function ctaButtons() {
+    return (site.consultUrl ? '<a class="pill coral" href="' + esc(site.consultUrl) + '">' + esc(site.consultLabel || "Book a consultation") + "</a>" : "") +
+      (site.contactUrl ? '<a class="pill outline" href="' + esc(site.contactUrl) + '">' + esc(site.contactLabel || "Contact us") + "</a>" : "");
+  }
+  function ctaBlock(r) {
+    if (!r.cta || (!site.consultUrl && !site.contactUrl)) return "";
+    return '<div class="cta"><div><h3>' + esc(r.cta.title) + "</h3><p>" + esc(r.cta.text) + '</p></div><div class="cta-btns">' + ctaButtons() + "</div></div>";
+  }
+
+  function result() {
+    var r = E.resultView(cfg, cur);
+    var h = '<div class="t-' + esc(r.tone) + '"><div class="verdict"><div class="ic">' + (I[r.tone] || I.neutral) + "</div><div>" +
+      (r.badge ? '<div class="badge">' + esc(r.badge) + "</div>" : "") + '<h2 id="res" tabindex="-1">' + esc(r.title) + "</h2><p>" + rich(r.summary) + "</p></div></div>";
+    var cta = ctaBlock(r);
+    h += cta;
+    if (r.points && r.points.length) h += '<section class="rsec"><h3>What this means</h3><ul>' + r.points.map(function (x) { return "<li>" + rich(x) + "</li>"; }).join("") + "</ul></section>";
+    if (r.assessment) h += assessment(r);
+    h += familySection(r);
+    if (r.grant) h += '<section class="rsec"><h3>Where to be when the visa is granted</h3><p>' + rich(r.grant) + "</p></section>";
+    if (r.next && r.next.length) h += '<section class="rsec"><h3>Next steps</h3><ol class="next">' + r.next.map(function (x) {
+      var it = typeof x === "string" ? { text: x } : x, link = "";
+      if (it.action === "consult" && site.consultUrl) link = ' <a class="inline-cta" href="' + esc(site.consultUrl) + '">' + esc(site.consultLabel || "Book a consultation") + " \u2192</a>";
+      if (it.action === "contact" && site.contactUrl) link = ' <a class="inline-cta" href="' + esc(site.contactUrl) + '">' + esc(site.contactLabel || "Contact us") + " \u2192</a>";
+      return "<li>" + (it.important ? '<span class="imp">Important</span>' : "") + rich(it.text) + link + "</li>";
+    }).join("") + "</ol></section>";
+    if (r.cta) h += '<div class="cta-end"><p><b>Still have questions about your application?</b> Our migration agents are here to help.</p><div class="cta-btns">' + ctaButtons() + "</div></div>";
+    h += '<div class="actions">' + (hist.length ? '<button type="button" class="btn ghost" id="back">' + I.back + "Back</button>" : "") +
+      (r.actions || []).map(function (a, i) { return '<button type="button" class="btn ghost" data-act="' + i + '">' + esc(a.label) + "</button>"; }).join("") +
+      '<span class="spacer"></span><button type="button" class="btn ghost" id="print">' + I.print + 'Print or save as PDF</button><button type="button" class="btn primary" id="again">Start again</button></div></div>';
+    app.innerHTML = h;
+    if (r.cta && (site.consultUrl || site.contactUrl)) { $("mbar").innerHTML = ctaButtons(); document.body.classList.add("has-bar"); }
+    $("again").onclick = function () { restart(); };
+    $("print").onclick = function () { window.print(); };
+    var b = $("back"); if (b) b.onclick = back;
+    app.querySelectorAll("[data-act]").forEach(function (el) { el.onclick = function () { restart(r.actions[+el.getAttribute("data-act")].goTo); }; });
+    var fc = $("fam-check"); if (fc) fc.onclick = function () { restart(cfg.familyNote.action.goTo); };
+    $("res").focus({ preventScroll: true });
+    toPanel(true);
+  }
+
+  /* ---------- decision map (#map) ---------- */
+  var mapDrawn = false;
+  function loadScript(urls, done, fail) {
+    if (!urls.length) return fail();
+    var s = document.createElement("script"); s.src = urls[0];
+    s.onload = done; s.onerror = function () { s.remove(); loadScript(urls.slice(1), done, fail); };
+    document.head.appendChild(s);
+  }
+  function drawMap() {
+    var src = E.toMermaid(cfg);
+    $("src").value = src;
+    $("stats").textContent = Object.keys(cfg.questions).length + " questions, " + Object.keys(cfg.results).length + " results, " + Object.keys(cfg.streams).length + " streams.";
+    $("issues").innerHTML = issues.length
+      ? '<div class="issues bad"><b>Fix these in the config:</b><ul>' + issues.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul></div>"
+      : '<div class="issues ok">Every answer leads to a question or result, and every step can be reached.</div>';
+    if (mapDrawn) return;
+    var draw = function () {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: "strict" });
+      window.mermaid.render("flowsvg", src).then(function (out) {
+        $("canvas").innerHTML = out.svg; mapDrawn = true;
+        var svg = $("canvas").querySelector("svg"), vb = svg.viewBox && svg.viewBox.baseVal, full = false, zb = $("zoom");
+        svg.removeAttribute("height"); svg.style.maxWidth = "none";
+        var apply = function () { svg.style.width = full && vb && vb.width ? vb.width + "px" : "100%"; zb.textContent = full ? "Fit to screen" : "Actual size"; };
+        zb.hidden = false; zb.onclick = function () { full = !full; apply(); }; apply();
+      }).catch(function (e) { $("canvas").textContent = "The map could not be drawn: " + (e && e.message ? e.message : e); });
+    };
+    if (window.mermaid) return draw();
+    loadScript(["https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js", "https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"], draw,
+      function () { $("canvas").textContent = "The map renderer could not load. Copy the Mermaid source below into mermaid.live to view it."; });
+  }
+  $("copy-src").onclick = function () {
+    var t = $("src"), btn = $("copy-src");
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy Mermaid source"; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t.value).then(done, function () { t.select(); document.execCommand("copy"); done(); });
+    else { t.select(); document.execCommand("copy"); done(); }
+  };
+  $("dl-src").onclick = function () {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([$("src").value], { type: "text/plain" }));
+    a.download = "student-visa-checker-map.mmd"; document.body.appendChild(a); a.click(); a.remove();
+  };
+  $("to-checker").onclick = function (e) { e.preventDefault(); history.pushState("", document.title, location.pathname + location.search); route(); };
+  function route() { var m = location.hash === "#map" && site.enableMap !== false; $("map-view").hidden = !m; $("checker-view").hidden = m; if (m) drawMap(); }
+  /* In embed mode, tell the parent page how tall the checker is, so its iframe can fit it. */
+  if (window.parent !== window && document.documentElement.classList.contains("embed")) {
+    var lastH = 0, post = function () {
+      var hgt = Math.ceil(document.documentElement.scrollHeight);
+      if (hgt !== lastH) { lastH = hgt; window.parent.postMessage({ type: "pfec-checker-height", height: hgt }, "*"); }
+    };
+    if (window.ResizeObserver) new ResizeObserver(post).observe(document.body); else setInterval(post, 500);
+    window.addEventListener("load", post);
+  }
+  window.addEventListener("hashchange", route);
+  route();
+  render();
+})();
+
+</script>
+</body>
+</html>
