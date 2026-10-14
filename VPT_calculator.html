@@ -354,7 +354,7 @@ var VPT = {
   var datalist = '<datalist id="occs">' + Object.keys(occIndex).map(function (k) { var o = occIndex[k]; return '<option value="' + esc(o.name + " (" + o.code + ")") + '">'; }).join("") + "</datalist>";
 
   /* ---------- state ---------- */
-  var S = { partnerIncluded: "", partnerClaimed: "", partnerOcc: "", employed: "", earnings: "", occ: "" };
+  var S = { partnerIncluded: "", partnerClaimed: "", partnerOcc: "", employed: "", earnings: "" };
   C.factors.forEach(function (f) { if (f.options) S[f.id] = ""; });
 
   function maxOf(f) {
@@ -416,7 +416,6 @@ var VPT = {
       if (f.id === "skill") help += ' Check yours on the <a href="' + esc(C.program.skillLevelUrl) + '">Home Affairs skilled occupation list</a>.';
       html += '<p class="help">' + (f.id === "skill" ? help.replace(/^([^<]*)/, function (m) { return esc(m); }) : esc(help)) + "</p>" +
         chips(f.id, f.options.map(function (o, i) { return { label: o[0], pts: o[1], value: i }; }), f.options.length > 4 ? "wide" : "", S[f.id]);
-      if (f.id === "skill") html += '<div class="field"><label for="in-occ">Your nominated occupation (optional)</label><input id="in-occ" list="occs" autocomplete="off" placeholder="Start typing to see the priority list"><small>This does not change your points. It shows whether you are also considered in a priority industry round.</small></div><div id="msg-occ"></div>';
     } else if (f.control === "partner") {
       html += '<p class="help">50 points only if all three conditions are met.</p><p class="sub q" style="background:none;border:0;padding:0;margin:0 0 10px">Will your partner be included in your state nominated visa application?</p>' +
         chips("partnerIncluded", [{ label: "Yes", value: "yes" }, { label: "No, or I am single", value: "no" }, { label: "My partner is an Australian citizen or permanent resident", value: "au" }], "stack", S.partnerIncluded) +
@@ -496,15 +495,6 @@ var VPT = {
     if (e.done && e.amount != null) em = e.band ? '<p class="okmsg">Band ' + money(e.band.min) + (e.band.max ? "–" + money(e.band.max) : " and over") + ": +" + e.band.pts + " points.</p>" : '<p class="infomsg">Earnings below ' + money(C.earnings[0][0]) + " score no points.</p>";
     $("msg-earnings").innerHTML = em;
 
-    var om = "";
-    if (S.occ.trim()) {
-      var o = findOcc(S.occ), exp = C.factors.filter(function (f) { return f.id === "experience"; })[0], eng = C.factors.filter(function (f) { return f.id === "english"; })[0];
-      if (o) {
-        om = '<p class="okmsg">' + esc(o.name) + " is a " + esc(C.program.year) + " priority occupation (" + esc(o.group.industry) + "). You are considered in that priority industry round as well as the most competitive round.</p>";
-        if (o.group.note) om += '<p class="infomsg">' + esc(o.group.note) + "</p>";
-      } else om = '<p class="infomsg">Not on the ' + esc(C.program.year) + " priority list. You are still considered in the most competitive round if your occupation is eligible.</p>";
-    }
-    $("msg-occ").innerHTML = om;
   }
 
   function update() { renderMessages(); renderSummary(); }
@@ -528,8 +518,7 @@ var VPT = {
     var el = ev.target;
     if (el.id === "in-earn") S.earnings = el.value;
     if (el.id === "in-pocc") S.partnerOcc = el.value;
-    if (el.id === "in-occ") S.occ = el.value;
-    if (el.id === "in-earn" || el.id === "in-pocc" || el.id === "in-occ") update();
+    if (el.id === "in-earn" || el.id === "in-pocc") update();
   });
   $("in-earn").addEventListener("blur", function () {
     var n = parseFloat(String(this.value).replace(/[^0-9.]/g, ""));
